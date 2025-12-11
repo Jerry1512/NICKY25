@@ -11,41 +11,200 @@
   --glass:rgba(255,255,255,0.12);
 }
 *{box-sizing:border-box}
-html,body{height:100%;width:100%;margin:0;background:#031226;font-family:Poppins,system-ui,Arial;overflow:hidden;-webkit-tap-highlight-color:transparent}
-.screen{position:fixed;inset:0;display:flex;align-items:center;justify-content:center;flex-direction:column;opacity:0;pointer-events:none;transition:opacity .5s ease}
-.screen.active{opacity:1;pointer-events:auto}
-.bg{position:absolute;inset:0;background-size:cover;background-position:center;filter:brightness(.9);z-index:0}
-.wrap{position:relative;z-index:6;width:92%;max-width:960px;margin:0 auto;text-align:center;color:var(--white)}
+html,body{
+  height:100%;
+  width:100%;
+  margin:0;
+  background:#031226;
+  font-family:Poppins,system-ui,Arial;
+  overflow:hidden;
+  -webkit-tap-highlight-color:transparent;
+}
+.screen{
+  position:fixed;
+  inset:0;
+  display:flex;
+  align-items:center;
+  justify-content:center;
+  flex-direction:column;
+  opacity:0;
+  pointer-events:none;
+  transition:opacity .5s ease;
+}
+.screen.active{
+  opacity:1;
+  pointer-events:auto;
+}
+.bg{
+  position:absolute;
+  inset:0;
+  background-size:cover;
+  background-position:center;
+  filter:brightness(.9);
+  z-index:0;
+}
+.wrap{
+  position:relative;
+  z-index:6;
+  width:92%;
+  max-width:960px;
+  margin:0 auto;
+  text-align:center;
+  color:var(--white);
+}
 
 /* SCREEN 1 */
 #screen1 .wrap{padding-top:14vh}
-.title1{font-size:clamp(22px,6vw,38px);font-weight:900;text-shadow:0 10px 30px rgba(0,20,40,0.7)}
-.subtitle1{font-size:clamp(12px,3.4vw,18px);opacity:.95;margin-top:.5rem}
-.tap-btn{margin-top:1.2rem;padding:.9rem 2.6rem;border-radius:28px;border:0;background:linear-gradient(180deg,rgba(255,255,255,0.08),rgba(255,255,255,0.03));backdrop-filter:blur(6px);box-shadow:0 12px 40px rgba(10,30,60,0.3);color:var(--white);font-weight:800;cursor:pointer}
+.title1{
+  font-size:clamp(22px,6vw,38px);
+  font-weight:900;
+  text-shadow:0 10px 30px rgba(0,20,40,0.7);
+}
+.subtitle1{
+  font-size:clamp(12px,3.4vw,18px);
+  opacity:.95;
+  margin-top:.5rem;
+}
+.tap-btn{
+  margin-top:1.2rem;
+  padding:.9rem 2.6rem;
+  border-radius:28px;
+  border:0;
+  background:linear-gradient(180deg,rgba(255,255,255,0.08),rgba(255,255,255,0.03));
+  backdrop-filter:blur(6px);
+  box-shadow:0 12px 40px rgba(10,30,60,0.3);
+  color:var(--white);
+  font-weight:800;
+  cursor:pointer;
+}
 
 /* PANELS – Screens 2 & 4 */
-.panel-container{width:92%;height:86%;display:flex;flex-direction:column;gap:18px;padding:3vh 0;justify-content:space-between;z-index:5}
-.panel{height:30%;min-height:90px;border-radius:14px;overflow:visible;position:relative;cursor:pointer}
-.card{width:100%;height:100%;border-radius:12px;overflow:hidden;position:relative;background:#000;box-shadow:0 16px 50px rgba(0,20,40,0.35)}
-.img-wrap{position:absolute;inset:0;transition:transform .85s cubic-bezier(.2,.9,.28,1);transform-origin:center}
-.front-img{width:100%;height:100%;object-fit:cover;display:block}
-.back{position:absolute;inset:0;display:flex;align-items:center;justify-content:center;text-align:center;color:var(--white);padding:18px;background:rgba(0,0,0,0.45)}
-.blur-image{position:absolute;inset:0;width:100%;height:100%;object-fit:cover;filter:blur(10px) brightness(.85);transform:scale(1.02)}
-.panel-text{position:relative;z-index:3;font-size:clamp(12px,3vw,18px);line-height:1.45;text-shadow:0 6px 18px rgba(0,0,0,0.6)}
-
-.img-flipped{transform:rotateY(180deg);}
+.panel-container{
+  width:92%;
+  height:86%;
+  display:flex;
+  flex-direction:column;
+  gap:18px;
+  padding:3vh 0;
+  justify-content:space-between;
+  z-index:5;
+}
+.panel{
+  height:30%;
+  min-height:90px;
+  border-radius:14px;
+  overflow:visible;
+  position:relative;
+  cursor:pointer;
+}
+.card{
+  width:100%;
+  height:100%;
+  border-radius:12px;
+  overflow:hidden;
+  position:relative;
+  background:#000;
+  box-shadow:0 16px 50px rgba(0,20,40,0.35);
+}
+.img-wrap{
+  position:absolute;
+  inset:0;
+  transition:transform .85s cubic-bezier(.2,.9,.28,1);
+  transform-origin:center;
+}
+.front-img{
+  width:100%;
+  height:100%;
+  object-fit:cover;
+  display:block;
+}
+.back{
+  position:absolute;
+  inset:0;
+  display:flex;
+  align-items:center;
+  justify-content:center;
+  text-align:center;
+  color:var(--white);
+  padding:18px;
+  background:rgba(0,0,0,0.45);
+}
+.blur-image{
+  position:absolute;
+  inset:0;
+  width:100%;
+  height:100%;
+  object-fit:cover;
+  filter:blur(10px) brightness(.85);
+  transform:scale(1.02);
+}
+.panel-text{
+  position:relative;
+  z-index:3;
+  font-size:clamp(12px,3vw,18px);
+  line-height:1.45;
+  text-shadow:0 6px 18px rgba(0,0,0,0.6);
+}
+.img-flipped{
+  transform:rotateY(180deg);
+}
 
 /* LETTER PAGE */
-.letter-wrap{width:92%;max-width:920px;background:rgba(255,255,255,0.06);backdrop-filter:blur(6px);border-radius:14px;padding:26px;color:#fff;box-shadow:0 20px 60px rgba(0,20,40,0.5);z-index:5}
-.letter-title{font-size:clamp(22px,5vw,36px);font-weight:900;margin-bottom:12px}
-.letter-text{font-size:clamp(14px,3.4vw,18px);line-height:1.6;white-space:pre-wrap;text-align:left}
-.letter-overlay{position:absolute;inset:0;cursor:pointer;z-index:7}
+.letter-wrap{
+  width:92%;
+  max-width:920px;
+  background:rgba(255,255,255,0.06);
+  backdrop-filter:blur(6px);
+  border-radius:14px;
+  padding:26px;
+  color:#fff;
+  box-shadow:0 20px 60px rgba(0,20,40,0.5);
+  z-index:5;
+}
+.letter-title{
+  font-size:clamp(22px,5vw,36px);
+  font-weight:900;
+  margin-bottom:12px;
+}
+.letter-text{
+  font-size:clamp(14px,3.4vw,18px);
+  line-height:1.6;
+  white-space:pre-wrap;
+  text-align:left;
+}
+.letter-overlay{
+  position:absolute;
+  inset:0;
+  cursor:pointer;
+  z-index:7;
+}
 
-/* SCREEN 5 slideshow */
-#slides-wrap{position:absolute;inset:0;z-index:0}
-.slide{position:absolute;inset:0;background-size:cover;background-position:center;filter:blur(8px) brightness(.82);opacity:0;transition:opacity 1s ease}
-.slide.show{opacity:1}
-.final-line{color:#fff;font-weight:800;font-size:clamp(18px,4vw,30px);opacity:0;transform:translateY(10px);transition:opacity .9s,transform .9s}
+/* SCREEN 5 SLIDESHOW */
+#slides-wrap{
+  position:absolute;
+  inset:0;
+  z-index:0;
+}
+.slide{
+  position:absolute;
+  inset:0;
+  background-size:cover;
+  background-position:center;
+  filter:blur(8px) brightness(.82);
+  opacity:0;
+  transition:opacity 1s ease;
+}
+.slide.show{
+  opacity:1;
+}
+.final-line{
+  color:#fff;
+  font-weight:800;
+  font-size:clamp(18px,4vw,30px);
+  opacity:0;
+  transform:translateY(10px);
+  transition:opacity .9s,transform .9s;
+}
 
 @media(max-width:420px){
   .panel{height:28vh}
@@ -73,7 +232,6 @@ html,body{height:100%;width:100%;margin:0;background:#031226;font-family:Poppins
   <div class="bg" style="background-image:url('assets/SCREEN3.jpeg')"></div>
 
   <div class="panel-container">
-    <!-- PANEL 1 -->
     <div class="panel" id="p2-1">
       <div class="card">
         <div class="img-wrap" id="img2-1">
@@ -91,7 +249,6 @@ html,body{height:100%;width:100%;margin:0;background:#031226;font-family:Poppins
       </div>
     </div>
 
-    <!-- PANEL 2 -->
     <div class="panel" id="p2-2">
       <div class="card">
         <div class="img-wrap" id="img2-2">
@@ -107,7 +264,6 @@ html,body{height:100%;width:100%;margin:0;background:#031226;font-family:Poppins
       </div>
     </div>
 
-    <!-- PANEL 3 -->
     <div class="panel" id="p2-3">
       <div class="card">
         <div class="img-wrap" id="img2-3">
@@ -130,6 +286,7 @@ html,body{height:100%;width:100%;margin:0;background:#031226;font-family:Poppins
 <!-- SCREEN 3 -->
 <section id="screen3" class="screen">
   <div class="bg" style="background-image:url('assets/ima3.jpeg')"></div>
+
   <div class="wrap letter-wrap">
     <div class="letter-title">HAPPIEST BIRTHDAY JANUDIIII.</div>
     <div class="letter-text">
@@ -145,6 +302,7 @@ but every word I write for you, every feeling I share —
 it all comes from a place that is real inside me.
     </div>
   </div>
+
   <div class="letter-overlay" onclick="showScreen('screen4')"></div>
 </section>
 
@@ -154,11 +312,10 @@ it all comes from a place that is real inside me.
 
   <div class="panel-container">
 
-    <!-- 4-1 -->
     <div class="panel" id="p4-1">
       <div class="card">
         <div class="img-wrap" id="img4-1">
-          <div class="panel-text" style="z-index:3;position:absolute;inset:0;display:flex;align-items:center;justify-content:center;background:rgba(0,0,0,.45)">
+          <div class="panel-text" style="position:absolute;inset:0;display:flex;align-items:center;justify-content:center;background:rgba(0,0,0,.45)">
             WHY I LOVE YOU
           </div>
         </div>
@@ -169,11 +326,10 @@ it all comes from a place that is real inside me.
       </div>
     </div>
 
-    <!-- 4-2 -->
     <div class="panel" id="p4-2">
       <div class="card">
         <div class="img-wrap" id="img4-2">
-          <div class="panel-text" style="z-index:3;position:absolute;inset:0;display:flex;align-items:center;justify-content:center;background:rgba(0,0,0,.45)">
+          <div class="panel-text" style="position:absolute;inset:0;display:flex;align-items:center;justify-content:center;background:rgba(0,0,0,.45)">
             MY PROMISES TO YOU
           </div>
         </div>
@@ -184,11 +340,10 @@ it all comes from a place that is real inside me.
       </div>
     </div>
 
-    <!-- 4-3 -->
     <div class="panel" id="p4-3">
       <div class="card">
         <div class="img-wrap" id="img4-3">
-          <div class="panel-text" style="z-index:3;position:absolute;inset:0;display:flex;align-items:center;justify-content:center;background:rgba(0,0,0,.45)">
+          <div class="panel-text" style="position:absolute;inset:0;display:flex;align-items:center;justify-content:center;background:rgba(0,0,0,.45)">
             THE FUTURE I WANT WITH YOU
           </div>
         </div>
@@ -228,85 +383,157 @@ it all comes from a place that is real inside me.
     <div class="final-line" id="line5">YOURS JERRY</div>
   </div>
 </section>
-
 <script>
-/* SHOW SCREEN */
+/* ---------- helper to show screens ---------- */
 function showScreen(id){
+  // hide all
   document.querySelectorAll('.screen').forEach(s=>{
     s.classList.remove('active');
+    s.setAttribute('aria-hidden','true');
   });
-  document.getElementById(id).classList.add('active');
-}
+  // show requested
+  const el = document.getElementById(id);
+  if(!el) return;
+  el.classList.add('active');
+  el.removeAttribute('aria-hidden');
 
-/* AUDIO */
-const bgm=document.getElementById('bgm');
-document.getElementById('openBtn').addEventListener('click',async()=>{
-  bgm.muted=false;
-  try{await bgm.play();}catch(e){}
-  showScreen('screen2');
-});
-
-/* PANEL LOGIC (screens 2 & 4) */
-function setFlip(panelPrefix,imgPrefix,total,nextScreen){
-  let flipped=[false,false,false];
-  for(let i=1;i<=total;i++){
-    let p=document.getElementById(`${panelPrefix}-${i}`);
-    let img=document.getElementById(`${imgPrefix}-${i}`);
-    let back=p.querySelector('.back');
-
-    p.addEventListener('click',()=>{
-      if(!img.classList.contains('img-flipped')){
-        img.classList.add('img-flipped');
-        flipped[i-1]=true;
-      }
-    });
-
-    back.addEventListener('click',e=>{
-      e.stopPropagation();
-      if(i<total){
-        let n=document.getElementById(`${imgPrefix}-${i+1}`);
-        if(n && !n.classList.contains('img-flipped')){
-          n.classList.add('img-flipped');
-          flipped[i]=true;
-        }
-      }
-      if(flipped.every(v=>v)){
-        setTimeout(()=>showScreen(nextScreen),5000);
-      }
-    });
+  // when reaching screen5, start final sequence shortly after transition
+  if(id === 'screen5'){
+    setTimeout(()=> {
+      // begin slideshow and text animations
+      startFinal();
+    }, 300);
   }
 }
 
+/* ---------- Audio control: unmute & start on first user tap ---------- */
+const bgm = document.getElementById('bgm');
+bgm.volume = 1;
+document.getElementById('openBtn').addEventListener('click', async () => {
+  try{
+    bgm.muted = false;
+    await bgm.play();
+  }catch(e){
+    // ignore autoplay errors — audio will play after user interaction in browsers
+  }
+  showScreen('screen2');
+});
+
+/* ---------- generic flip logic for panel groups ---------- */
+/* panelPrefix: 'p2' or 'p4'
+   imgPrefix: 'img2' or 'img4'
+   total: number of panels (3)
+   nextScreen: id to show after all flipped
+*/
+function setFlip(panelPrefix, imgPrefix, total, nextScreen) {
+  const flipped = new Array(total).fill(false);
+
+  for(let i=1;i<=total;i++){
+    const panelId = `${panelPrefix}-${i}`;
+    const imgId = `${imgPrefix}-${i}`;
+
+    const p = document.getElementById(panelId);
+    const imgWrap = document.getElementById(imgId);
+
+    if(!p || !imgWrap) continue;
+
+    // FRONT TAP: flip image only (image rotates)
+    p.addEventListener('click', (ev) => {
+      // If already flipped, ignore
+      if(imgWrap.classList.contains('img-flipped')) return;
+      imgWrap.classList.add('img-flipped');
+      flipped[i-1] = true;
+      // After flipping, if all flipped, schedule next screen after 5s
+      if(flipped.every(Boolean)){
+        setTimeout(()=> showScreen(nextScreen), 5000);
+      }
+    }, {passive:true});
+
+    // BACK TAP: just trigger the check (user might click on back)
+    const back = p.querySelector('.back');
+    if(back){
+      back.addEventListener('click', (ev) => {
+        ev.stopPropagation();
+        // mark this panel as flipped if for some reason it wasn't (edge-case)
+        if(!imgWrap.classList.contains('img-flipped')){
+          imgWrap.classList.add('img-flipped');
+          flipped[i-1] = true;
+        }
+        if(flipped.every(Boolean)){
+          setTimeout(()=> showScreen(nextScreen), 5000);
+        }
+      }, {passive:true});
+    }
+  }
+}
+
+/* Initialize flips for Screen 2 and Screen 4 */
 setFlip('p2','img2',3,'screen3');
 setFlip('p4','img4',3,'screen5');
 
-/* SCREEN 5 SLIDESHOW + TEXT */
-let slides=[...document.querySelectorAll('.slide')];
-let si=0;
-function startSlide(){
-  slides.forEach(s=>s.classList.remove('show'));
+/* ---------- Screen 5 slideshow + text animations ---------- */
+let slideInterval = null;
+function startSlides(){
+  const slides = Array.from(document.querySelectorAll('.slide'));
+  if(!slides.length) return;
+  let idx = 0;
+  // clear any previous
+  slides.forEach(s => s.classList.remove('show'));
   slides[0].classList.add('show');
-  setInterval(()=>{
-    slides[si].classList.remove('show');
-    si=(si+1)%slides.length;
-    slides[si].classList.add('show');
-  },2000);
+
+  // safe guard: clear previous interval
+  if(slideInterval) clearInterval(slideInterval);
+
+  slideInterval = setInterval(()=>{
+    slides[idx].classList.remove('show');
+    idx = (idx + 1) % slides.length;
+    slides[idx].classList.add('show');
+  }, 2000);
 }
 
 function startFinal(){
-  startSlide();
-  let ids=['line1','line2','line3','line4','line5'];
-  let d=500;
+  // start slideshow
+  startSlides();
+
+  // animate lines in order, then fade out
+  const ids = ['line1','line2','line3','line4','line5'];
+  let delay = 400;
+
   ids.forEach(id=>{
+    const el = document.getElementById(id);
+    if(!el) return;
+    el.style.transition = 'opacity 900ms ease, transform 900ms ease';
+    el.style.transform = 'translateY(10px)';
+    el.style.opacity = 0;
+    // Fade in
     setTimeout(()=>{
-      let el=document.getElementById(id);
-      el.style.opacity=1;
-      el.style.transform="translateY(0)";
-    },d);
-    d+=1800;
+      el.style.opacity = 1;
+      el.style.transform = 'translateY(0)';
+    }, delay);
+    delay += 1800;
+  });
+
+  // after all shown, fade them out sequentially
+  const outStart = delay + 1200;
+  ids.forEach((id,i)=>{
+    const el = document.getElementById(id);
+    if(!el) return;
+    setTimeout(()=>{
+      el.style.transition = 'opacity 900ms ease';
+      el.style.opacity = 0;
+    }, outStart + i*900);
   });
 }
-document.getElementById('screen5').addEventListener('transitionend',startFinal);
+
+/* ---------- ensure initial screen is screen1 ---------- */
+window.addEventListener('load', ()=> {
+  showScreen('screen1');
+  // small safety: ensure no panels are pre-flipped
+  ['img2-1','img2-2','img2-3','img4-1','img4-2','img4-3'].forEach(id=>{
+    const el = document.getElementById(id);
+    if(el) el.classList.remove('img-flipped');
+  });
+});
 </script>
 </body>
 </html>
