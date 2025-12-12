@@ -8,6 +8,7 @@
 :root{
   --white:#ffffff;
   --glass:rgba(255,255,255,0.12);
+  --soft-blue: #eaf7ff;
 }
 *{box-sizing:border-box}
 html,body{
@@ -30,7 +31,7 @@ html,body{
   flex-direction:column;
   opacity:0;
   pointer-events:none;
-  transition:opacity .5s ease;
+  transition:opacity .45s ease;
 }
 .screen.active{
   opacity:1;
@@ -62,18 +63,47 @@ html,body{
 #screen1 .wrap{padding-top:12vh}
 .title1{font-size:clamp(20px,6vw,36px);font-weight:900;text-shadow:0 10px 30px rgba(0,20,40,0.7)}
 .subtitle1{font-size:clamp(12px,3.4vw,18px);opacity:.95;margin-top:.4rem}
-.tap-btn{margin-top:1.2rem;padding:.9rem 2.6rem;border-radius:28px;border:0;background:linear-gradient(180deg,rgba(255,255,255,0.08),rgba(255,255,255,0.03));backdrop-filter:blur(6px);box-shadow:0 12px 40px rgba(10,30,60,0.3);color:var(--white);font-weight:800;cursor:pointer}
+.tap-btn{
+  margin-top:1.2rem;padding:.9rem 2.6rem;border-radius:28px;border:0;
+  background:linear-gradient(180deg,rgba(255,255,255,0.08),rgba(255,255,255,0.03));
+  backdrop-filter:blur(6px);box-shadow:0 12px 40px rgba(10,30,60,0.3);
+  color:var(--white);font-weight:800;cursor:pointer;
+  outline:none;
+}
 
 /* panels (screen2 & screen4) */
 .panel-container{width:92%;height:86%;display:flex;flex-direction:column;gap:18px;padding:3vh 0;justify-content:space-between;z-index:5}
 .panel{height:30%;min-height:100px;border-radius:14px;overflow:visible;position:relative;cursor:pointer}
 .card{width:100%;height:100%;border-radius:12px;overflow:hidden;position:relative;background:#000;box-shadow:0 16px 50px rgba(0,20,40,0.35)}
-.img-wrap{position:absolute;inset:0;transition:transform .85s cubic-bezier(.2,.9,.28,1);transform-origin:center;backface-visibility:hidden}
+
+/* FRONT image wrapper */
+.img-wrap{
+  position:absolute;inset:0;transition:transform .85s cubic-bezier(.2,.9,.28,1), opacity .35s ease;transform-origin:center;
+  backface-visibility:hidden;z-index:2;
+}
+/* add a slight snowy glow overlay on the front to match aesthetic */
+.img-wrap::after{
+  content:"";position:absolute;inset:0;pointer-events:none;background:linear-gradient(180deg, rgba(234,247,255,0.02), rgba(234,247,255,0.0));mix-blend-mode:screen;
+}
+
+/* front image */
 .front-img{width:100%;height:100%;object-fit:cover;display:block}
-.back{position:absolute;inset:0;display:flex;align-items:center;justify-content:center;text-align:center;color:var(--white);padding:18px;background:rgba(0,0,0,0.45)}
-.blur-image{position:absolute;inset:0;width:100%;height:100%;object-fit:cover;filter:blur(10px) brightness(.85);transform:scale(1.02)}
-.panel-text{position:relative;z-index:3;font-size:clamp(12px,3vw,18px);line-height:1.45;text-shadow:0 6px 18px rgba(0,0,0,0.6)}
-.img-flipped{transform:rotateY(180deg)}
+
+/* BACK (hidden until flip) */
+.back{
+  position:absolute;inset:0;display:flex;align-items:center;justify-content:center;text-align:center;color:var(--white);
+  padding:18px;background:rgba(0,0,0,0.25);z-index:1;opacity:0;pointer-events:none;transition:opacity .5s ease;
+}
+/* when the panel has .flipped, make back visible above */
+.panel.flipped .back{opacity:1;pointer-events:auto;z-index:3}
+
+/* blurred image inside back */
+.blur-image{position:absolute;inset:0;width:100%;height:100%;object-fit:cover;filter:blur(10px) brightness(.85);transform:scale(1.02);z-index:1}
+/* back text sits above the blur */
+.panel-text{position:relative;z-index:3;font-size:clamp(12px,3vw,18px);line-height:1.45;text-shadow:0 6px 18px rgba(0,0,0,0.6);text-align:center}
+
+/* when img is flipped visually rotate it */
+.img-flipped{transform:rotateY(180deg);opacity:0.95}
 
 /* letter page */
 .letter-wrap{width:92%;max-width:920px;background:rgba(255,255,255,0.06);backdrop-filter:blur(6px);border-radius:14px;padding:26px;color:#fff;box-shadow:0 20px 60px rgba(0,20,40,0.5);z-index:5}
@@ -302,11 +332,6 @@ document.getElementById('openBtn').addEventListener('click', async () => {
 });
 
 /* ---------- flip logic helper ---------- */
-/* behavior:
-   - front tap flips the img-wrap (image-only)
-   - back click does not auto-flip next; it only prevents propagation
-   - after all panels flipped, wait 5 seconds -> next screen
-*/
 function setupPanels(panelPrefix, imgPrefix, total, nextScreen){
   const flipped = new Array(total).fill(false);
 
@@ -319,24 +344,30 @@ function setupPanels(panelPrefix, imgPrefix, total, nextScreen){
     // front tap: flip image only
     panel.addEventListener('click', (ev)=>{
       // if already flipped do nothing
-      if(imgWrap.classList.contains('img-flipped')) return;
+      if(panel.classList.contains('flipped')) return;
+
+      // visually rotate front image
       imgWrap.classList.add('img-flipped');
+
+      // mark panel as flipped (shows back)
+      panel.classList.add('flipped');
+
       flipped[i-1] = true;
 
-      // check if all flipped
+      // check if all flipped then wait 5s and go to next
       if(flipped.every(Boolean)){
         setTimeout(()=> showScreen(nextScreen), 5000);
       }
     }, {passive:true});
 
-    // back click: prevent bubbling, but do not auto-flip next
+    // back click: prevent bubbling and ensure flipped state
     const back = panel.querySelector('.back');
     if(back){
       back.addEventListener('click', (ev)=>{
         ev.stopPropagation();
-        // mark as flipped if user tapped the back directly (edge-case)
-        if(!imgWrap.classList.contains('img-flipped')){
+        if(!panel.classList.contains('flipped')){
           imgWrap.classList.add('img-flipped');
+          panel.classList.add('flipped');
           flipped[i-1] = true;
         }
         if(flipped.every(Boolean)){
@@ -347,8 +378,8 @@ function setupPanels(panelPrefix, imgPrefix, total, nextScreen){
   }
 }
 
-/* initialize screens 2 and 4 panels (ids match the markup above) */
-setupPanels('p2','img2',3,'screen3'); // p2-1 ... img2-1 ...
+/* initialize screens 2 and 4 panels */
+setupPanels('p2','img2',3,'screen3');
 setupPanels('p4','img4',3,'screen5');
 
 /* ---------- screen5 slideshow + looping lines ---------- */
