@@ -32,12 +32,13 @@ html,body{
 .panel-container{width:92%;height:86%;display:flex;flex-direction:column;gap:18px;padding:3vh 0;justify-content:space-between;z-index:5}
 .panel{height:30%;min-height:100px;border-radius:14px;overflow:visible;position:relative;cursor:pointer;perspective:1400px}
 .panel-inner{position:relative;width:100%;height:100%;transform-style:preserve-3d;transition:transform .6s cubic-bezier(.2,.9,.28,1);border-radius:12px;overflow:hidden;box-shadow:0 16px 50px rgba(0,20,40,0.35);}
-/* IMPORTANT: rotate inner when panel has 'flipped' class */
+
+/* flip state rotates the panel-inner */
 .panel.flipped .panel-inner{transform:rotateY(180deg)}
 
 /* faces */
 .face{position:absolute;inset:0;backface-visibility:hidden;display:flex;align-items:center;justify-content:center;overflow:hidden}
-.front{z-index:2;transform:rotateY(0deg)}
+.front{z-index:1;transform:rotateY(0deg)}
 .front img{width:100%;height:100%;object-fit:cover;display:block}
 .front .overlay-title{position:absolute;inset:0;display:flex;align-items:center;justify-content:center;color:white;font-weight:800;font-size:clamp(14px,4vw,20px);z-index:3;background:transparent;pointer-events:none}
 
@@ -46,10 +47,7 @@ html,body{
 .back .blur-image{position:absolute;inset:0;width:100%;height:100%;object-fit:cover;filter:blur(8px) brightness(.85);transform:scale(1.02);z-index:1}
 .back .panel-text{position:relative;z-index:3;font-size:clamp(12px,3vw,18px);line-height:1.45;text-shadow:0 6px 18px rgba(0,0,0,0.6);color:white}
 
-/* Z-INDEX swap fix:
-   When panel is flipped, place back above front so front overlay isn't drawn over back.
-   This prevents the "front text showing backwards" bug.
-*/
+/* When flipped we raise the back over the front to avoid front showing through */
 .panel.flipped .front{z-index:0}
 .panel.flipped .back{z-index:2}
 
@@ -65,6 +63,11 @@ html,body{
 .slide.show{opacity:1}
 .final-line{color:#fff;font-weight:800;font-size:clamp(18px,4vw,30px);opacity:0;transform:translateY(10px);transition:opacity .9s,transform .9s;margin:12px 0}
 
+/* small visible fallback play button if audio is blocked */
+#playFallback{
+  position:fixed;right:18px;bottom:18px;z-index:9999;padding:.6rem 1rem;border-radius:8px;background:#fff;color:#031226;font-weight:700;border:none;display:none;box-shadow:0 8px 30px rgba(0,0,0,0.35);
+}
+
 /* responsive */
 @media(max-width:420px){ .panel{height:28vh} .letter-text{text-align:center} }
 </style>
@@ -73,6 +76,8 @@ html,body{
 
 <!-- AUDIO -->
 <audio id="bgm" src="assets/KaiseHua.mp3" preload="auto" autoplay muted loop></audio>
+<!-- visible fallback if browser refuses play — user can tap it to start audio -->
+<button id="playFallback" aria-hidden="true">Play music</button>
 
 <!-- SCREEN 1 -->
 <section id="screen1" class="screen active" aria-label="Intro">
@@ -80,7 +85,7 @@ html,body{
   <div class="wrap">
     <div class="title1">HAPPY BIRTHDAY JANUDI</div>
     <div class="subtitle1">A SPECIAL DAY FOR THE LOVE OF MY LIFE</div>
-    <button id="openBtn" class="tap-btn">TAP TO OPEN</button>
+    <button id="openBtn" class="tap-btn" aria-label="Tap to open">TAP TO OPEN</button>
   </div>
 </section>
 
@@ -89,7 +94,7 @@ html,body{
   <div class="bg" style="background-image:url('assets/SCREEN3.jpeg')"></div>
   <div class="panel-container">
     <!-- Panel 1 -->
-    <div class="panel" id="p2-1">
+    <div class="panel" id="p2-1" role="button" tabindex="0" data-index="1">
       <div class="panel-inner">
         <div class="face front">
           <img src="assets/ima1.jpeg" alt="ima1 front">
@@ -107,7 +112,7 @@ html,body{
     </div>
 
     <!-- Panel 2 -->
-    <div class="panel" id="p2-2">
+    <div class="panel" id="p2-2" role="button" tabindex="0" data-index="2">
       <div class="panel-inner">
         <div class="face front">
           <img src="assets/ima2.jpeg" alt="ima2 front">
@@ -123,7 +128,7 @@ html,body{
     </div>
 
     <!-- Panel 3 -->
-    <div class="panel" id="p2-3">
+    <div class="panel" id="p2-3" role="button" tabindex="0" data-index="3">
       <div class="panel-inner">
         <div class="face front">
           <img src="assets/ima3.jpeg" alt="ima3 front">
@@ -167,11 +172,11 @@ it all comes from a place that is real inside me.
   <div class="bg" style="background-image:url('assets/SCREEN5.jpeg')"></div>
   <div class="panel-container">
     <!-- 4-1 -->
-    <div class="panel" id="p4-1">
+    <div class="panel" id="p4-1" role="button" tabindex="0">
       <div class="panel-inner">
         <div class="face front">
           <img src="assets/ONE.jpeg" alt="one front">
-          <div class="overlay-title" style="position:absolute;inset:0;display:flex;align-items:center;justify-content:center;color:white;font-weight:800;font-size:clamp(14px,4vw,20px);z-index:3">
+          <div class="overlay-title" style="position:absolute;inset:0;display:flex;align-items:center;justify-content:center;color:white;font-weight:800;font-size:clamp(14px,4vw,20px);z-index:3;pointer-events:none">
             WHY I LOVE YOU
           </div>
         </div>
@@ -183,11 +188,11 @@ it all comes from a place that is real inside me.
     </div>
 
     <!-- 4-2 -->
-    <div class="panel" id="p4-2">
+    <div class="panel" id="p4-2" role="button" tabindex="0">
       <div class="panel-inner">
         <div class="face front">
           <img src="assets/TWO.jpeg" alt="two front">
-          <div class="overlay-title" style="position:absolute;inset:0;display:flex;align-items:center;justify-content:center;color:white;font-weight:800;font-size:clamp(14px,4vw,20px);z-index:3">
+          <div class="overlay-title" style="position:absolute;inset:0;display:flex;align-items:center;justify-content:center;color:white;font-weight:800;font-size:clamp(14px,4vw,20px);z-index:3;pointer-events:none">
             MY PROMISES TO YOU
           </div>
         </div>
@@ -199,11 +204,11 @@ it all comes from a place that is real inside me.
     </div>
 
     <!-- 4-3 -->
-    <div class="panel" id="p4-3">
+    <div class="panel" id="p4-3" role="button" tabindex="0">
       <div class="panel-inner">
         <div class="face front">
           <img src="assets/THREE.jpeg" alt="three front">
-          <div class="overlay-title" style="position:absolute;inset:0;display:flex;align-items:center;justify-content:center;color:white;font-weight:800;font-size:clamp(14px,4vw,20px);z-index:3">
+          <div class="overlay-title" style="position:absolute;inset:0;display:flex;align-items:center;justify-content:center;color:white;font-weight:800;font-size:clamp(14px,4vw,20px);z-index:3;pointer-events:none">
             THE FUTURE I WANT WITH YOU
           </div>
         </div>
@@ -244,7 +249,7 @@ it all comes from a place that is real inside me.
 </section>
 
 <script>
-/* show screen helper */
+/* ------------ screen helper ------------ */
 function showScreen(id){
   document.querySelectorAll('.screen').forEach(s=>{
     s.classList.remove('active');
@@ -258,62 +263,86 @@ function showScreen(id){
   if(id === 'screen5'){ setTimeout(()=> startFinalLoop(), 350); }
 }
 
-/* Audio unlock — try on button, then attach multiple fallback gestures */
+/* ------------ audio: robust unlock ------------ */
 const bgm = document.getElementById('bgm');
-bgm.volume = 1;
+bgm.volume = 1; // at full volume
 const openBtn = document.getElementById('openBtn');
+const playFallback = document.getElementById('playFallback');
 
-async function tryUnlockAudio(){
+async function tryPlayAudio(){
   try{
     bgm.muted = false;
     await bgm.play();
+    // hide fallback UI if visible
+    playFallback.style.display = 'none';
     return true;
   }catch(e){
+    // show small fallback so user can manually enable sound
+    playFallback.style.display = 'block';
+    playFallback.setAttribute('aria-hidden','false');
     return false;
   }
 }
 
+// primary attempt: when user presses TAP TO OPEN
 openBtn.addEventListener('click', async ()=>{
-  const ok = await tryUnlockAudio();
-  if(!ok){
-    // add fallback one-time listeners for any gesture
-    const attempt = async ()=>{ await tryUnlockAudio(); removeGestureUnlock(); };
-    function removeGestureUnlock(){ document.removeEventListener('click',attempt); document.removeEventListener('touchstart',attempt); document.removeEventListener('keydown',attempt); document.removeEventListener('scroll',attempt); }
-    document.addEventListener('click', attempt, {passive:true});
-    document.addEventListener('touchstart', attempt, {passive:true});
-    document.addEventListener('keydown', attempt, {passive:true});
-    document.addEventListener('scroll', attempt, {passive:true});
-  }
+  const ok = await tryPlayAudio();
+  // if not OK, we still advance to screen2 and keep fallback available
   showScreen('screen2');
 });
 
-/* Card flip logic: toggle .flipped class on panel element.
-   CSS handles rotation of .panel-inner; we swap z-index so front doesn't overlay the back when flipped.
-   After all panels flipped -> wait 5s -> next screen.
+// fallback button: visible when auto-unlock failed
+playFallback.addEventListener('click', async ()=>{
+  await tryPlayAudio();
+});
+
+// extra safety: any panel click or global gesture will also try to unlock
+['click','touchstart','keydown','scroll'].forEach(ev=>{
+  const handler = async function(){ await tryPlayAudio(); document.removeEventListener(ev, handler); };
+  document.addEventListener(ev, handler, {passive:true});
+});
+
+/* ------------ panel flipping logic (whole panel flips) ------------ */
+/* panels should show front image; when tapped panel gets .flipped which rotates .panel-inner;
+   the back face (blur + text) is visible only when flipped (z-index and backface visibility set in CSS).
+   After all panels flipped -> wait 5 seconds -> next screen
 */
 function setupFlip(panelIds, nextScreen){
   const panels = panelIds.map(id => document.getElementById(id));
   const flipped = panels.map(()=>false);
+
   panels.forEach((panel, idx)=>{
     if(!panel) return;
-    panel.addEventListener('click', (ev)=>{
+
+    // handle click + keyboard activation (accessibility)
+    const activate = (ev) => {
+      // don't trigger if already flipped
       if(panel.classList.contains('flipped')) return;
       panel.classList.add('flipped');
       flipped[idx] = true;
+
+      // ensure audio attempt on interaction
+      tryPlayAudio().catch(()=>{});
+
+      // if all flipped, wait 5s then go to next screen
       if(flipped.every(Boolean)){
         setTimeout(()=> showScreen(nextScreen), 5000);
       }
-    }, {passive:true});
-    // prevent back clicks from re-triggering parent
+    };
+
+    panel.addEventListener('click', activate, {passive:true});
+    panel.addEventListener('keydown', (e)=>{ if(e.key==='Enter' || e.key===' ') { e.preventDefault(); activate(); } });
+
+    // stop back area clicks bubbling (prevents double triggers)
     const back = panel.querySelector('.back');
-    if(back) back.addEventListener('click', e=>e.stopPropagation(), {passive:true});
+    if(back) back.addEventListener('click', e=> e.stopPropagation(), {passive:true});
   });
 }
 
 setupFlip(['p2-1','p2-2','p2-3'],'screen3');
 setupFlip(['p4-1','p4-2','p4-3'],'screen5');
 
-/* SCREEN 5 slideshow + looping final lines */
+/* ------------ SCREEN 5: slideshow + looping lines ------------ */
 let slideTimer = null;
 function startSlides(){
   const slides = Array.from(document.querySelectorAll('.slide'));
@@ -356,11 +385,21 @@ function startFinalLoop(){
 
 /* init */
 window.addEventListener('load', ()=>{
+  // start at screen1
   showScreen('screen1');
-  // ensure clean state
+
+  // ensure no pre-flipped classes present
   ['p2-1','p2-2','p2-3','p4-1','p4-2','p4-3'].forEach(id=>{
     const el = document.getElementById(id);
     if(el) el.classList.remove('flipped');
+  });
+
+  // small: if audio file missing, show fallback button so user can manually play
+  // (we attempt once silently)
+  tryPlayAudio().then(ok=>{
+    if(!ok){
+      // fallback button already shown by tryPlayAudio when necessary
+    }
   });
 });
 </script>
