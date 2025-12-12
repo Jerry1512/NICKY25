@@ -3,7 +3,7 @@
 <head>
 <meta charset="utf-8" />
 <meta name="viewport" content="width=device-width,initial-scale=1" />
-<title>NICKY25 — Final</title>
+<title>NICKY25</title>
 
 <!-- Preload important assets -->
 <link rel="preload" href="assets/KaiseHua.mp3" as="audio">
@@ -28,39 +28,41 @@ html,body{
   font-family:Poppins,system-ui,Arial;overflow:hidden;-webkit-tap-highlight-color:transparent;
 }
 
-/* base */
-.screen{position:fixed;inset:0;display:flex;align-items:center;justify-content:center;flex-direction:column;opacity:0;pointer-events:none;transition:opacity .45s ease}
+/* screen base */
+.screen{position:fixed;inset:0;display:flex;align-items:center;justify-content:center;flex-direction:column;
+        opacity:0;pointer-events:none;transition:opacity .45s ease}
 .screen.active{opacity:1;pointer-events:auto}
 .bg{position:absolute;inset:0;background-size:cover;background-position:center;filter:brightness(.92);z-index:0}
 .wrap{position:relative;z-index:6;width:92%;max-width:960px;margin:0 auto;text-align:center;color:var(--white)}
 
-/* intro */
+/* Screen 1 */
 #screen1 .wrap{padding-top:12vh}
 .title1{font-size:clamp(20px,6vw,36px);font-weight:900;text-shadow:0 10px 30px rgba(0,20,40,0.7)}
 .subtitle1{font-size:clamp(12px,3.4vw,18px);opacity:.95;margin-top:.4rem}
 .tap-btn{margin-top:1.2rem;padding:.9rem 2.6rem;border-radius:28px;border:0;background:linear-gradient(180deg,rgba(255,255,255,0.08),rgba(255,255,255,0.03));backdrop-filter:blur(6px);box-shadow:0 12px 40px rgba(10,30,60,0.3);color:var(--white);font-weight:800;cursor:pointer;outline:none}
 
-/* panels */
+/* Panels (screens 2 & 4) */
 .panel-container{width:92%;height:86%;display:flex;flex-direction:column;gap:18px;padding:3vh 0;justify-content:space-between;z-index:5}
 .panel{height:30%;min-height:100px;border-radius:14px;overflow:visible;position:relative;cursor:pointer;perspective:1400px}
-.panel-inner{position:relative;width:100%;height:100%;transform-style:preserve-3d;transition:transform .6s cubic-bezier(.2,.9,.28,1);border-radius:12px;overflow:hidden;box-shadow:0 16px 50px rgba(0,20,40,0.35)}
+.panel-inner{position:relative;width:100%;height:100%;transform-style:preserve-3d;transition:transform .7s cubic-bezier(.2,.9,.28,1);border-radius:12px;overflow:hidden}
 .panel.flipped .panel-inner{transform:rotateY(180deg)}
 
-.face{position:absolute;inset:0;display:flex;align-items:center;justify-content:center;overflow:hidden;backface-visibility:hidden;-webkit-backface-visibility:hidden}
-.front{z-index:2;transform:rotateY(0deg)}
+/* faces */
+.face{position:absolute;inset:0;display:flex;align-items:center;justify-content:center;overflow:hidden}
+.front{backface-visibility:hidden;transform:rotateY(0deg);z-index:2}
 .front img{width:100%;height:100%;object-fit:cover;display:block}
-.front .overlay-title{position:absolute;inset:0;display:flex;align-items:center;justify-content:center;color:white;font-weight:800;font-size:clamp(14px,4vw,20px);z-index:3;background:transparent;pointer-events:none}
+.front .overlay-title{position:absolute;inset:0;display:flex;align-items:center;justify-content:center;color:white;font-weight:800;font-size:clamp(14px,4vw,20px);z-index:3;pointer-events:none}
 
 /* back */
-.back{transform:rotateY(180deg);display:flex;align-items:center;justify-content:center;padding:18px;text-align:center;background:rgba(0,0,0,0.18);backface-visibility:hidden;-webkit-backface-visibility:hidden}
-.back .blur-image{position:absolute;inset:0;width:100%;height:100%;object-fit:cover;filter:blur(8px) brightness(.85);transform:scale(1.02);z-index:1}
+.back{backface-visibility:hidden;transform:rotateY(180deg);display:flex;align-items:center;justify-content:center;padding:18px;text-align:center;background:rgba(0,0,0,0.18)}
+.back .blur-image{position:absolute;inset:0;width:100%;height:100%;object-fit:cover;filter:blur(10px) brightness(.82);transform:scale(1.02);z-index:1}
 .back .panel-text{position:relative;z-index:3;font-size:clamp(12px,3vw,18px);line-height:1.45;text-shadow:0 6px 18px rgba(0,0,0,0.6);color:white}
 
-/* when flipped ensure back sits on top */
-.panel.flipped .front{z-index:0}
-.panel.flipped .back{z-index:2}
+/* when flipped ensure back sits above front and front is not clickable */
+.panel.flipped .front{z-index:1;pointer-events:none}
+.panel.flipped .back{z-index:3;pointer-events:auto}
 
-/* letter */
+/* letter page */
 .letter-wrap{width:92%;max-width:920px;background:rgba(255,255,255,0.06);backdrop-filter:blur(6px);border-radius:14px;padding:26px;color:#fff;box-shadow:0 20px 60px rgba(0,20,40,0.5);z-index:5}
 .letter-title{font-size:clamp(22px,5vw,36px);font-weight:900;margin-bottom:12px}
 .letter-text{font-size:clamp(14px,3.4vw,18px);line-height:1.6;white-space:pre-wrap;text-align:left}
@@ -72,22 +74,21 @@ html,body{
 .slide.show{opacity:1}
 .final-line{color:#fff;font-weight:800;font-size:clamp(18px,4vw,30px);opacity:0;transform:translateY(10px);transition:opacity .9s,transform .9s;margin:14px 0}
 
-/* small visible fallback play button if audio blocked */
+/* small visible fallback play button if audio is blocked */
 #playFallback{
   position:fixed;right:18px;bottom:18px;z-index:9999;padding:.6rem 1rem;border-radius:8px;background:#fff;color:#031226;font-weight:700;border:none;display:none;box-shadow:0 8px 30px rgba(0,0,0,0.35);
 }
 
-/* responsive */
 @media(max-width:420px){ .panel{height:28vh} .letter-text{text-align:center} }
 </style>
 </head>
 <body>
 
-<!-- Audio -->
+<!-- AUDIO -->
 <audio id="bgm" src="assets/KaiseHua.mp3" preload="auto" autoplay muted loop></audio>
 <button id="playFallback" aria-hidden="true">Play music</button>
 
-<!-- SCREEN 1 -->
+<!-- SCREEN 1 (intro) -->
 <section id="screen1" class="screen active" aria-label="Intro">
   <div class="bg" style="background-image:url('assets/intro.jpeg')"></div>
   <div class="wrap">
@@ -97,11 +98,12 @@ html,body{
   </div>
 </section>
 
-<!-- SCREEN 2 -->
+<!-- SCREEN 2 (three flip panels) -->
 <section id="screen2" class="screen" aria-hidden="true">
   <div class="bg" style="background-image:url('assets/SCREEN3.jpeg')"></div>
   <div class="panel-container">
-    <!-- Panel 1 -->
+
+    <!-- panel 1 -->
     <div class="panel" id="p2-1" role="button" tabindex="0">
       <div class="panel-inner">
         <div class="face front">
@@ -119,7 +121,7 @@ html,body{
       </div>
     </div>
 
-    <!-- Panel 2 -->
+    <!-- panel 2 -->
     <div class="panel" id="p2-2" role="button" tabindex="0">
       <div class="panel-inner">
         <div class="face front">
@@ -135,7 +137,7 @@ html,body{
       </div>
     </div>
 
-    <!-- Panel 3 -->
+    <!-- panel 3 -->
     <div class="panel" id="p2-3" role="button" tabindex="0">
       <div class="panel-inner">
         <div class="face front">
@@ -151,10 +153,11 @@ html,body{
         </div>
       </div>
     </div>
+
   </div>
 </section>
 
-<!-- SCREEN 3 -->
+<!-- SCREEN 3 (letter page) -->
 <section id="screen3" class="screen" aria-hidden="true">
   <div class="bg" style="background-image:url('assets/ima3.jpeg')"></div>
   <div class="wrap letter-wrap" role="article">
@@ -172,13 +175,14 @@ but every word I write for you, every feeling I share —
 it all comes from a place that is real inside me.
     </div>
   </div>
-  <div class="letter-overlay" onclick="showScreen('screen4')"></div>
+  <div class="letter-overlay" onclick="showScreen('screen4')" aria-hidden="false"></div>
 </section>
 
-<!-- SCREEN 4 -->
+<!-- SCREEN 4 (three panels with front titles) -->
 <section id="screen4" class="screen" aria-hidden="true">
   <div class="bg" style="background-image:url('assets/SCREEN5.jpeg')"></div>
   <div class="panel-container">
+
     <!-- 4-1 -->
     <div class="panel" id="p4-1" role="button" tabindex="0">
       <div class="panel-inner">
@@ -230,10 +234,11 @@ it all comes from a place that is real inside me.
         </div>
       </div>
     </div>
+
   </div>
 </section>
 
-<!-- SCREEN 5 -->
+<!-- SCREEN 5 (final slideshow + looping lines) -->
 <section id="screen5" class="screen" aria-hidden="true">
   <div id="slides-wrap">
     <div class="slide" style="background-image:url('assets/intro.jpeg')"></div>
@@ -257,7 +262,7 @@ it all comes from a place that is real inside me.
 </section>
 
 <script>
-/* ---------------- show screens ---------------- */
+/* -------------------- Utilities -------------------- */
 function showScreen(id){
   document.querySelectorAll('.screen').forEach(s=>{
     s.classList.remove('active');
@@ -271,11 +276,11 @@ function showScreen(id){
   if(id === 'screen5'){ setTimeout(()=> startFinalLoop(), 350); }
 }
 
-/* ---------------- audio unlock + fallback ---------------- */
+/* -------------------- Audio handling -------------------- */
 const bgm = document.getElementById('bgm');
-bgm.volume = 1;
 const openBtn = document.getElementById('openBtn');
 const playFallback = document.getElementById('playFallback');
+bgm.volume = 1.0;
 
 async function tryPlayAudio(){
   try{
@@ -285,83 +290,95 @@ async function tryPlayAudio(){
     playFallback.setAttribute('aria-hidden','true');
     return true;
   }catch(e){
-    // show manual fallback button
+    // show fallback
     playFallback.style.display = 'block';
     playFallback.setAttribute('aria-hidden','false');
     return false;
   }
 }
 
+// primary open button
 openBtn.addEventListener('click', async ()=>{
   await tryPlayAudio();
   showScreen('screen2');
 });
 
+// fallback manual play
 playFallback.addEventListener('click', async ()=>{
   await tryPlayAudio();
 });
 
-/* attempt unlock on first user gesture (safety) */
+// try once on first user gesture if initial auto failed
 ['click','touchstart','keydown','scroll'].forEach(ev=>{
   const handler = async function(){ await tryPlayAudio(); document.removeEventListener(ev, handler); };
   document.addEventListener(ev, handler, {passive:true});
 });
 
-/* ---------------- panel flip logic (whole panel flips) ----------------
-   Behavior:
-    - click panel -> class "flipped" added to panel
-    - CSS rotates .panel-inner and shows back face
-    - after flip animation finishes we hide the front face element to prevent "ghost/backwards text"
-      (this avoids the front overlay appearing through)
-*/
-function setupFlip(panelIds, nextScreen){
+/* -------------------- Panel flip logic (screen2 & screen4) --------------------
+Behavior:
+ - Clicking a panel toggles .flipped (rotates .panel-inner)
+ - When back face is tapped, it auto-flips the next panel (if any)
+ - When all 3 panels are flipped -> wait 5s -> next screen
+--------------------------------------------------------------------------*/
+function wirePanels(panelIds, nextScreen){
   const panels = panelIds.map(id => document.getElementById(id));
   const flipped = panels.map(()=>false);
 
-  panels.forEach((panel, idx)=>{
+  panels.forEach((panel, idx) => {
     if(!panel) return;
 
+    // main activation (front area click)
     const activate = (ev) => {
       if(panel.classList.contains('flipped')) return;
-      // ensure back content already rendered (should be)
       panel.classList.add('flipped');
       flipped[idx] = true;
 
-      // try audio again (safe)
+      // try to start audio on interaction
       tryPlayAudio().catch(()=>{});
 
-      // hide the front content after half the duration so 3D rotation finished visually
-      setTimeout(()=>{
-        const front = panel.querySelector('.front');
-        if(front) front.style.visibility = 'hidden';
-      }, 320); // slightly more than half of .6s animation
-
-      // ensure back elements are visible (in case)
-      const back = panel.querySelector('.back');
-      if(back){
-        back.style.visibility = 'visible';
-      }
-
-      // when all flipped -> wait 5s then go to next screen
+      // if all flipped, goto nextScreen after 5s
       if(flipped.every(Boolean)){
         setTimeout(()=> showScreen(nextScreen), 5000);
       }
     };
 
     panel.addEventListener('click', activate, {passive:true});
-    panel.addEventListener('keydown', (e)=>{ if(e.key==='Enter' || e.key===' ') { e.preventDefault(); activate(); } });
+    panel.addEventListener('keydown', (e) => { if(e.key === 'Enter' || e.key === ' ') { e.preventDefault(); activate(); } });
 
-    // if user somehow clicks directly the back, stop propagation (keeps behaviour stable)
+    // when user clicks the back face's text or area, auto-flip next panel
     const back = panel.querySelector('.back');
-    if(back) back.addEventListener('click', (e)=>{ e.stopPropagation(); }, {passive:true});
+    if(back){
+      back.addEventListener('click', (ev) => {
+        ev.stopPropagation();
+        // flip this one if somehow not flipped
+        if(!panel.classList.contains('flipped')){
+          panel.classList.add('flipped');
+          flipped[idx] = true;
+        }
+        // flip next if exists and not flipped
+        const nextPanel = panels[idx+1];
+        if(nextPanel && !nextPanel.classList.contains('flipped')){
+          nextPanel.classList.add('flipped');
+          flipped[idx+1] = true;
+        }
+        if(flipped.every(Boolean)){
+          setTimeout(()=> showScreen(nextScreen), 5000);
+        }
+      }, {passive:true});
+    }
   });
 }
 
-/* initialize both screens */
-setupFlip(['p2-1','p2-2','p2-3'],'screen3');
-setupFlip(['p4-1','p4-2','p4-3'],'screen5');
+// wire screen 2 and screen 4
+wirePanels(['p2-1','p2-2','p2-3'],'screen3');
+wirePanels(['p4-1','p4-2','p4-3'],'screen5');
 
-/* ---------------- screen5 slideshow + looping lines ---------------- */
+/* -------------------- Screen 3: tap anywhere -> screen4 -------------------- */
+document.querySelectorAll('#screen3, #screen3 .letter-overlay').forEach(el=>{
+  el.addEventListener('click', ()=> showScreen('screen4'), {passive:true});
+});
+
+/* -------------------- Screen 5: slideshow + looping lines -------------------- */
 let slideTimer = null;
 function startSlides(){
   const slides = Array.from(document.querySelectorAll('.slide'));
@@ -370,7 +387,7 @@ function startSlides(){
   slides.forEach(s=>s.classList.remove('show'));
   slides[0].classList.add('show');
   if(slideTimer) clearInterval(slideTimer);
-  slideTimer = setInterval(()=>{
+  slideTimer = setInterval(() => {
     slides[idx].classList.remove('show');
     idx = (idx + 1) % slides.length;
     slides[idx].classList.add('show');
@@ -382,42 +399,47 @@ function startFinalLoop(){
   if(finalLoopRunning) return;
   finalLoopRunning = true;
   const ids = ['line1','line2','line3','line4','line5'];
-  const lines = ids.map(id=>document.getElementById(id));
-  lines.forEach(el=>{ if(el){ el.style.opacity=0; el.style.transform='translateY(10px)'; }});
+  const lines = ids.map(id => document.getElementById(id));
+  lines.forEach(el => { if(el){ el.style.opacity = 0; el.style.transform = 'translateY(10px)'; }});
   startSlides();
+
   (function runCycle(){
     let delay = 400;
-    lines.forEach((el)=>{
+    lines.forEach((el,i) => {
       if(!el) return;
-      setTimeout(()=>{ el.style.transition='opacity 900ms ease, transform 900ms ease'; el.style.opacity=1; el.style.transform='translateY(0)'; }, delay);
+      setTimeout(()=> {
+        el.style.transition = 'opacity 900ms ease, transform 900ms ease';
+        el.style.opacity = 1;
+        el.style.transform = 'translateY(0)';
+      }, delay);
       delay += 1800;
     });
     const outStart = delay + 1200;
-    lines.forEach((el,i)=>{
+    lines.forEach((el,i) => {
       if(!el) return;
-      setTimeout(()=>{ el.style.transition='opacity 900ms ease'; el.style.opacity=0; }, outStart + i*900);
+      setTimeout(()=> {
+        el.style.transition = 'opacity 900ms ease';
+        el.style.opacity = 0;
+      }, outStart + i*900);
     });
     const totalCycle = outStart + (lines.length * 900) + 500;
     setTimeout(runCycle, totalCycle);
   })();
 }
 
-/* -------------- init -------------- */
-window.addEventListener('load', ()=>{
-  // start intro
+/* -------------------- Init -------------------- */
+window.addEventListener('load', () => {
+  // start at screen1
   showScreen('screen1');
 
-  // ensure no leftover flipped/front hidden states from earlier copies
+  // remove any stray flipped classes in case of hot reload
   ['p2-1','p2-2','p2-3','p4-1','p4-2','p4-3'].forEach(id=>{
     const el = document.getElementById(id);
-    if(!el) return;
-    el.classList.remove('flipped');
-    const front = el.querySelector('.front');
-    if(front) front.style.visibility = 'visible';
+    if(el) el.classList.remove('flipped');
   });
 
-  // try audio silently once
-  tryPlayAudio().then(()=>{/*noop*/});
+  // quick silent attempt to play audio; if blocked user sees fallback button
+  tryPlayAudio().then(()=>{/* no-op */});
 });
 </script>
 </body>
