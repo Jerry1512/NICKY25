@@ -4,7 +4,6 @@
 <meta charset="utf-8" />
 <meta name="viewport" content="width=device-width,initial-scale=1" />
 <title>NICKY25</title>
-
 <style>
 :root{
   --white:#ffffff;
@@ -20,6 +19,8 @@ html,body{
   overflow:hidden;
   -webkit-tap-highlight-color:transparent;
 }
+
+/* screen base */
 .screen{
   position:fixed;
   inset:0;
@@ -35,14 +36,18 @@ html,body{
   opacity:1;
   pointer-events:auto;
 }
+
+/* background image layer */
 .bg{
   position:absolute;
   inset:0;
   background-size:cover;
   background-position:center;
-  filter:brightness(.9);
+  filter:brightness(.92);
   z-index:0;
 }
+
+/* content wrapper */
 .wrap{
   position:relative;
   z-index:6;
@@ -53,159 +58,36 @@ html,body{
   color:var(--white);
 }
 
-/* SCREEN 1 */
-#screen1 .wrap{padding-top:14vh}
-.title1{
-  font-size:clamp(22px,6vw,38px);
-  font-weight:900;
-  text-shadow:0 10px 30px rgba(0,20,40,0.7);
-}
-.subtitle1{
-  font-size:clamp(12px,3.4vw,18px);
-  opacity:.95;
-  margin-top:.5rem;
-}
-.tap-btn{
-  margin-top:1.2rem;
-  padding:.9rem 2.6rem;
-  border-radius:28px;
-  border:0;
-  background:linear-gradient(180deg,rgba(255,255,255,0.08),rgba(255,255,255,0.03));
-  backdrop-filter:blur(6px);
-  box-shadow:0 12px 40px rgba(10,30,60,0.3);
-  color:var(--white);
-  font-weight:800;
-  cursor:pointer;
-}
+/* screen1 */
+#screen1 .wrap{padding-top:12vh}
+.title1{font-size:clamp(20px,6vw,36px);font-weight:900;text-shadow:0 10px 30px rgba(0,20,40,0.7)}
+.subtitle1{font-size:clamp(12px,3.4vw,18px);opacity:.95;margin-top:.4rem}
+.tap-btn{margin-top:1.2rem;padding:.9rem 2.6rem;border-radius:28px;border:0;background:linear-gradient(180deg,rgba(255,255,255,0.08),rgba(255,255,255,0.03));backdrop-filter:blur(6px);box-shadow:0 12px 40px rgba(10,30,60,0.3);color:var(--white);font-weight:800;cursor:pointer}
 
-/* PANELS – Screens 2 & 4 */
-.panel-container{
-  width:92%;
-  height:86%;
-  display:flex;
-  flex-direction:column;
-  gap:18px;
-  padding:3vh 0;
-  justify-content:space-between;
-  z-index:5;
-}
-.panel{
-  height:30%;
-  min-height:90px;
-  border-radius:14px;
-  overflow:visible;
-  position:relative;
-  cursor:pointer;
-}
-.card{
-  width:100%;
-  height:100%;
-  border-radius:12px;
-  overflow:hidden;
-  position:relative;
-  background:#000;
-  box-shadow:0 16px 50px rgba(0,20,40,0.35);
-}
-.img-wrap{
-  position:absolute;
-  inset:0;
-  transition:transform .85s cubic-bezier(.2,.9,.28,1);
-  transform-origin:center;
-}
-.front-img{
-  width:100%;
-  height:100%;
-  object-fit:cover;
-  display:block;
-}
-.back{
-  position:absolute;
-  inset:0;
-  display:flex;
-  align-items:center;
-  justify-content:center;
-  text-align:center;
-  color:var(--white);
-  padding:18px;
-  background:rgba(0,0,0,0.45);
-}
-.blur-image{
-  position:absolute;
-  inset:0;
-  width:100%;
-  height:100%;
-  object-fit:cover;
-  filter:blur(10px) brightness(.85);
-  transform:scale(1.02);
-}
-.panel-text{
-  position:relative;
-  z-index:3;
-  font-size:clamp(12px,3vw,18px);
-  line-height:1.45;
-  text-shadow:0 6px 18px rgba(0,0,0,0.6);
-}
-.img-flipped{
-  transform:rotateY(180deg);
-}
+/* panels (screen2 & screen4) */
+.panel-container{width:92%;height:86%;display:flex;flex-direction:column;gap:18px;padding:3vh 0;justify-content:space-between;z-index:5}
+.panel{height:30%;min-height:100px;border-radius:14px;overflow:visible;position:relative;cursor:pointer}
+.card{width:100%;height:100%;border-radius:12px;overflow:hidden;position:relative;background:#000;box-shadow:0 16px 50px rgba(0,20,40,0.35)}
+.img-wrap{position:absolute;inset:0;transition:transform .85s cubic-bezier(.2,.9,.28,1);transform-origin:center;backface-visibility:hidden}
+.front-img{width:100%;height:100%;object-fit:cover;display:block}
+.back{position:absolute;inset:0;display:flex;align-items:center;justify-content:center;text-align:center;color:var(--white);padding:18px;background:rgba(0,0,0,0.45)}
+.blur-image{position:absolute;inset:0;width:100%;height:100%;object-fit:cover;filter:blur(10px) brightness(.85);transform:scale(1.02)}
+.panel-text{position:relative;z-index:3;font-size:clamp(12px,3vw,18px);line-height:1.45;text-shadow:0 6px 18px rgba(0,0,0,0.6)}
+.img-flipped{transform:rotateY(180deg)}
 
-/* LETTER PAGE */
-.letter-wrap{
-  width:92%;
-  max-width:920px;
-  background:rgba(255,255,255,0.06);
-  backdrop-filter:blur(6px);
-  border-radius:14px;
-  padding:26px;
-  color:#fff;
-  box-shadow:0 20px 60px rgba(0,20,40,0.5);
-  z-index:5;
-}
-.letter-title{
-  font-size:clamp(22px,5vw,36px);
-  font-weight:900;
-  margin-bottom:12px;
-}
-.letter-text{
-  font-size:clamp(14px,3.4vw,18px);
-  line-height:1.6;
-  white-space:pre-wrap;
-  text-align:left;
-}
-.letter-overlay{
-  position:absolute;
-  inset:0;
-  cursor:pointer;
-  z-index:7;
-}
+/* letter page */
+.letter-wrap{width:92%;max-width:920px;background:rgba(255,255,255,0.06);backdrop-filter:blur(6px);border-radius:14px;padding:26px;color:#fff;box-shadow:0 20px 60px rgba(0,20,40,0.5);z-index:5}
+.letter-title{font-size:clamp(22px,5vw,36px);font-weight:900;margin-bottom:12px}
+.letter-text{font-size:clamp(14px,3.4vw,18px);line-height:1.6;white-space:pre-wrap;text-align:left}
+.letter-overlay{position:absolute;inset:0;cursor:pointer;z-index:7}
 
-/* SCREEN 5 SLIDESHOW */
-#slides-wrap{
-  position:absolute;
-  inset:0;
-  z-index:0;
-}
-.slide{
-  position:absolute;
-  inset:0;
-  background-size:cover;
-  background-position:center;
-  filter:blur(8px) brightness(.82);
-  opacity:0;
-  transition:opacity 1s ease;
-}
-.slide.show{
-  opacity:1;
-}
-.final-line{
-  color:#fff;
-  font-weight:800;
-  font-size:clamp(18px,4vw,30px);
-  opacity:0;
-  transform:translateY(10px);
-  transition:opacity .9s,transform .9s;
-}
+/* screen5 slideshow */
+#slides-wrap{position:absolute;inset:0;z-index:0;overflow:hidden}
+.slide{position:absolute;inset:0;background-size:cover;background-position:center;filter:blur(8px) brightness(.82);opacity:0;transition:opacity 1s ease}
+.slide.show{opacity:1}
+.final-line{color:#fff;font-weight:800;font-size:clamp(18px,4vw,30px);opacity:0;transform:translateY(10px);transition:opacity .9s,transform .9s}
 
+/* responsiveness */
 @media(max-width:420px){
   .panel{height:28vh}
   .letter-text{text-align:center}
@@ -214,31 +96,32 @@ html,body{
 </head>
 <body>
 
-<!-- AUDIO -->
+<!-- AUDIO (must be in assets folder) -->
 <audio id="bgm" src="assets/KaiseHua.mp3" preload="auto" autoplay muted loop></audio>
 
-<!-- SCREEN 1 -->
-<section id="screen1" class="screen active">
+<!-- SCREEN 1 - INTRO -->
+<section id="screen1" class="screen active" aria-label="Intro">
   <div class="bg" style="background-image:url('assets/intro.jpeg')"></div>
   <div class="wrap">
     <div class="title1">HAPPY BIRTHDAY JANUDI</div>
     <div class="subtitle1">A SPECIAL DAY FOR THE LOVE OF MY LIFE</div>
-    <button id="openBtn" class="tap-btn">TAP TO OPEN</button>
+    <button id="openBtn" class="tap-btn" aria-label="Tap to open">TAP TO OPEN</button>
   </div>
 </section>
 
-<!-- SCREEN 2 -->
-<section id="screen2" class="screen">
+<!-- SCREEN 2 - THREE IMAGE PANELS -->
+<section id="screen2" class="screen" aria-hidden="true">
   <div class="bg" style="background-image:url('assets/SCREEN3.jpeg')"></div>
-
   <div class="panel-container">
-    <div class="panel" id="p2-1">
+
+    <!-- Panel 1 -->
+    <div class="panel" id="p2-1" data-index="1">
       <div class="card">
         <div class="img-wrap" id="img2-1">
-          <img class="front-img" src="assets/ima1.jpeg">
+          <img class="front-img" src="assets/ima1.jpeg" alt="panel1 front">
         </div>
-        <div class="back">
-          <img class="blur-image" src="assets/ima1.jpeg">
+        <div class="back" aria-hidden="false">
+          <img class="blur-image" src="assets/ima1.jpeg" alt="">
           <div class="panel-text">
             Happiest birthday Nicky, always stay happy.<br>
             You’re one of the most precious parts of my life.<br>
@@ -249,13 +132,14 @@ html,body{
       </div>
     </div>
 
-    <div class="panel" id="p2-2">
+    <!-- Panel 2 -->
+    <div class="panel" id="p2-2" data-index="2">
       <div class="card">
         <div class="img-wrap" id="img2-2">
-          <img class="front-img" src="assets/ima2.jpeg">
+          <img class="front-img" src="assets/ima2.jpeg" alt="panel2 front">
         </div>
-        <div class="back">
-          <img class="blur-image" src="assets/ima2.jpeg">
+        <div class="back" aria-hidden="false">
+          <img class="blur-image" src="assets/ima2.jpeg" alt="">
           <div class="panel-text">
             Your smile, your heart, your softness…<br>
             I fall for them a little more every day.
@@ -264,13 +148,14 @@ html,body{
       </div>
     </div>
 
-    <div class="panel" id="p2-3">
+    <!-- Panel 3 -->
+    <div class="panel" id="p2-3" data-index="3">
       <div class="card">
         <div class="img-wrap" id="img2-3">
-          <img class="front-img" src="assets/ima3.jpeg">
+          <img class="front-img" src="assets/ima3.jpeg" alt="panel3 front">
         </div>
-        <div class="back">
-          <img class="blur-image" src="assets/ima3.jpeg">
+        <div class="back" aria-hidden="false">
+          <img class="blur-image" src="assets/ima3.jpeg" alt="">
           <div class="panel-text">
             No matter where life takes us,<br>
             my feelings for you will always stay the same—<br>
@@ -283,11 +168,10 @@ html,body{
   </div>
 </section>
 
-<!-- SCREEN 3 -->
-<section id="screen3" class="screen">
+<!-- SCREEN 3 - LETTER -->
+<section id="screen3" class="screen" aria-hidden="true">
   <div class="bg" style="background-image:url('assets/ima3.jpeg')"></div>
-
-  <div class="wrap letter-wrap">
+  <div class="wrap letter-wrap" role="article">
     <div class="letter-title">HAPPIEST BIRTHDAY JANUDIIII.</div>
     <div class="letter-text">
 If I could describe what you mean to me.
@@ -302,53 +186,55 @@ but every word I write for you, every feeling I share —
 it all comes from a place that is real inside me.
     </div>
   </div>
-
-  <div class="letter-overlay" onclick="showScreen('screen4')"></div>
+  <div class="letter-overlay" onclick="showScreen('screen4')" aria-hidden="false"></div>
 </section>
 
-<!-- SCREEN 4 -->
-<section id="screen4" class="screen">
+<!-- SCREEN 4 - THREE PANELS (has front titles) -->
+<section id="screen4" class="screen" aria-hidden="true">
   <div class="bg" style="background-image:url('assets/SCREEN5.jpeg')"></div>
-
   <div class="panel-container">
 
-    <div class="panel" id="p4-1">
+    <!-- 4-1 -->
+    <div class="panel" id="p4-1" data-index="1">
       <div class="card">
         <div class="img-wrap" id="img4-1">
-          <div class="panel-text" style="position:absolute;inset:0;display:flex;align-items:center;justify-content:center;background:rgba(0,0,0,.45)">
+          <!-- front title block (centered) -->
+          <div style="position:absolute;inset:0;display:flex;align-items:center;justify-content:center;background:transparent;color:white;font-weight:800;font-size:clamp(14px,4vw,20px);z-index:3">
             WHY I LOVE YOU
           </div>
         </div>
         <div class="back">
-          <img class="blur-image" src="assets/ONE.jpeg">
+          <img class="blur-image" src="assets/ONE.jpeg" alt="">
           <div class="panel-text">I love you because you never give up on us.</div>
         </div>
       </div>
     </div>
 
-    <div class="panel" id="p4-2">
+    <!-- 4-2 -->
+    <div class="panel" id="p4-2" data-index="2">
       <div class="card">
         <div class="img-wrap" id="img4-2">
-          <div class="panel-text" style="position:absolute;inset:0;display:flex;align-items:center;justify-content:center;background:rgba(0,0,0,.45)">
+          <div style="position:absolute;inset:0;display:flex;align-items:center;justify-content:center;background:transparent;color:white;font-weight:800;font-size:clamp(14px,4vw,20px);z-index:3">
             MY PROMISES TO YOU
           </div>
         </div>
         <div class="back">
-          <img class="blur-image" src="assets/TWO.jpeg">
+          <img class="blur-image" src="assets/TWO.jpeg" alt="">
           <div class="panel-text">I promise I'll never let a girl come between us.</div>
         </div>
       </div>
     </div>
 
-    <div class="panel" id="p4-3">
+    <!-- 4-3 -->
+    <div class="panel" id="p4-3" data-index="3">
       <div class="card">
         <div class="img-wrap" id="img4-3">
-          <div class="panel-text" style="position:absolute;inset:0;display:flex;align-items:center;justify-content:center;background:rgba(0,0,0,.45)">
+          <div style="position:absolute;inset:0;display:flex;align-items:center;justify-content:center;background:transparent;color:white;font-weight:800;font-size:clamp(14px,4vw,20px);z-index:3">
             THE FUTURE I WANT WITH YOU
           </div>
         </div>
         <div class="back">
-          <img class="blur-image" src="assets/THREE.jpeg">
+          <img class="blur-image" src="assets/THREE.jpeg" alt="">
           <div class="panel-text">
             We get married with our parents' permission and work hard.<br>
             We have our own house.<br>
@@ -361,8 +247,8 @@ it all comes from a place that is real inside me.
   </div>
 </section>
 
-<!-- SCREEN 5 -->
-<section id="screen5" class="screen">
+<!-- SCREEN 5 - FINAL SLIDESHOW + LOOPING LINES -->
+<section id="screen5" class="screen" aria-hidden="true">
   <div id="slides-wrap">
     <div class="slide" style="background-image:url('assets/intro.jpeg')"></div>
     <div class="slide" style="background-image:url('assets/ima1.jpeg')"></div>
@@ -383,30 +269,26 @@ it all comes from a place that is real inside me.
     <div class="final-line" id="line5">YOURS JERRY</div>
   </div>
 </section>
+
 <script>
-/* ---------- helper to show screens ---------- */
+/* ---------- show screen utility ---------- */
 function showScreen(id){
-  // hide all
   document.querySelectorAll('.screen').forEach(s=>{
     s.classList.remove('active');
     s.setAttribute('aria-hidden','true');
   });
-  // show requested
   const el = document.getElementById(id);
   if(!el) return;
   el.classList.add('active');
   el.removeAttribute('aria-hidden');
 
-  // when reaching screen5, start final sequence shortly after transition
+  // if we reached screen5, start final loop after small delay
   if(id === 'screen5'){
-    setTimeout(()=> {
-      // begin slideshow and text animations
-      startFinal();
-    }, 300);
+    setTimeout(()=> startFinalLoop(), 350);
   }
 }
 
-/* ---------- Audio control: unmute & start on first user tap ---------- */
+/* ---------- audio control ---------- */
 const bgm = document.getElementById('bgm');
 bgm.volume = 1;
 document.getElementById('openBtn').addEventListener('click', async () => {
@@ -414,47 +296,45 @@ document.getElementById('openBtn').addEventListener('click', async () => {
     bgm.muted = false;
     await bgm.play();
   }catch(e){
-    // ignore autoplay errors — audio will play after user interaction in browsers
+    // ignore browser autoplay restrictions
   }
   showScreen('screen2');
 });
 
-/* ---------- generic flip logic for panel groups ---------- */
-/* panelPrefix: 'p2' or 'p4'
-   imgPrefix: 'img2' or 'img4'
-   total: number of panels (3)
-   nextScreen: id to show after all flipped
+/* ---------- flip logic helper ---------- */
+/* behavior:
+   - front tap flips the img-wrap (image-only)
+   - back click does not auto-flip next; it only prevents propagation
+   - after all panels flipped, wait 5 seconds -> next screen
 */
-function setFlip(panelPrefix, imgPrefix, total, nextScreen) {
+function setupPanels(panelPrefix, imgPrefix, total, nextScreen){
   const flipped = new Array(total).fill(false);
 
   for(let i=1;i<=total;i++){
-    const panelId = `${panelPrefix}-${i}`;
-    const imgId = `${imgPrefix}-${i}`;
+    const panel = document.getElementById(`${panelPrefix}-${i}`);
+    const imgWrap = document.getElementById(`${imgPrefix}-${i}`);
 
-    const p = document.getElementById(panelId);
-    const imgWrap = document.getElementById(imgId);
+    if(!panel || !imgWrap) continue;
 
-    if(!p || !imgWrap) continue;
-
-    // FRONT TAP: flip image only (image rotates)
-    p.addEventListener('click', (ev) => {
-      // If already flipped, ignore
+    // front tap: flip image only
+    panel.addEventListener('click', (ev)=>{
+      // if already flipped do nothing
       if(imgWrap.classList.contains('img-flipped')) return;
       imgWrap.classList.add('img-flipped');
       flipped[i-1] = true;
-      // After flipping, if all flipped, schedule next screen after 5s
+
+      // check if all flipped
       if(flipped.every(Boolean)){
         setTimeout(()=> showScreen(nextScreen), 5000);
       }
     }, {passive:true});
 
-    // BACK TAP: just trigger the check (user might click on back)
-    const back = p.querySelector('.back');
+    // back click: prevent bubbling, but do not auto-flip next
+    const back = panel.querySelector('.back');
     if(back){
-      back.addEventListener('click', (ev) => {
+      back.addEventListener('click', (ev)=>{
         ev.stopPropagation();
-        // mark this panel as flipped if for some reason it wasn't (edge-case)
+        // mark as flipped if user tapped the back directly (edge-case)
         if(!imgWrap.classList.contains('img-flipped')){
           imgWrap.classList.add('img-flipped');
           flipped[i-1] = true;
@@ -467,68 +347,84 @@ function setFlip(panelPrefix, imgPrefix, total, nextScreen) {
   }
 }
 
-/* Initialize flips for Screen 2 and Screen 4 */
-setFlip('p2','img2',3,'screen3');
-setFlip('p4','img4',3,'screen5');
+/* initialize screens 2 and 4 panels (ids match the markup above) */
+setupPanels('p2','img2',3,'screen3'); // p2-1 ... img2-1 ...
+setupPanels('p4','img4',3,'screen5');
 
-/* ---------- Screen 5 slideshow + text animations ---------- */
-let slideInterval = null;
+/* ---------- screen5 slideshow + looping lines ---------- */
+let slideTimer = null;
 function startSlides(){
   const slides = Array.from(document.querySelectorAll('.slide'));
   if(!slides.length) return;
   let idx = 0;
-  // clear any previous
+  // clear existing
   slides.forEach(s => s.classList.remove('show'));
   slides[0].classList.add('show');
-
-  // safe guard: clear previous interval
-  if(slideInterval) clearInterval(slideInterval);
-
-  slideInterval = setInterval(()=>{
+  if(slideTimer) clearInterval(slideTimer);
+  slideTimer = setInterval(()=>{
     slides[idx].classList.remove('show');
     idx = (idx + 1) % slides.length;
     slides[idx].classList.add('show');
   }, 2000);
 }
 
-function startFinal(){
+/* animate lines: fade in one-by-one, fade out one-by-one, wait 0.5s, repeat */
+let finalLoopRunning = false;
+function startFinalLoop(){
+  if(finalLoopRunning) return;
+  finalLoopRunning = true;
+
+  const lines = ['line1','line2','line3','line4','line5'].map(id => document.getElementById(id));
+  // ensure initial styles
+  lines.forEach(el=>{
+    if(el){
+      el.style.opacity = 0;
+      el.style.transform = 'translateY(10px)';
+    }
+  });
+
   // start slideshow
   startSlides();
 
-  // animate lines in order, then fade out
-  const ids = ['line1','line2','line3','line4','line5'];
-  let delay = 400;
+  // function to run one full cycle
+  function runCycle(){
+    let delay = 400;
+    // fade in sequentially
+    lines.forEach((el,i)=>{
+      if(!el) return;
+      setTimeout(()=>{
+        el.style.transition = 'opacity 900ms ease, transform 900ms ease';
+        el.style.opacity = 1;
+        el.style.transform = 'translateY(0)';
+      }, delay);
+      delay += 1800;
+    });
 
-  ids.forEach(id=>{
-    const el = document.getElementById(id);
-    if(!el) return;
-    el.style.transition = 'opacity 900ms ease, transform 900ms ease';
-    el.style.transform = 'translateY(10px)';
-    el.style.opacity = 0;
-    // Fade in
-    setTimeout(()=>{
-      el.style.opacity = 1;
-      el.style.transform = 'translateY(0)';
-    }, delay);
-    delay += 1800;
-  });
+    // fade out sequentially after last in
+    const outStart = delay + 1200; // wait a bit after last arrived
+    lines.forEach((el,i)=>{
+      if(!el) return;
+      setTimeout(()=>{
+        el.style.transition = 'opacity 900ms ease';
+        el.style.opacity = 0;
+      }, outStart + i*900);
+    });
 
-  // after all shown, fade them out sequentially
-  const outStart = delay + 1200;
-  ids.forEach((id,i)=>{
-    const el = document.getElementById(id);
-    if(!el) return;
-    setTimeout(()=>{
-      el.style.transition = 'opacity 900ms ease';
-      el.style.opacity = 0;
-    }, outStart + i*900);
-  });
+    // schedule next run after full cycle + 500ms pause
+    const totalCycle = outStart + (lines.length * 900) + 500;
+    setTimeout(()=> runCycle(), totalCycle);
+  }
+
+  // start cycle
+  runCycle();
 }
 
-/* ---------- ensure initial screen is screen1 ---------- */
-window.addEventListener('load', ()=> {
+/* ensure initial state on load */
+window.addEventListener('load', ()=>{
+  // show intro
   showScreen('screen1');
-  // small safety: ensure no panels are pre-flipped
+
+  // remove any pre-flipped classes (safety)
   ['img2-1','img2-2','img2-3','img4-1','img4-2','img4-3'].forEach(id=>{
     const el = document.getElementById(id);
     if(el) el.classList.remove('img-flipped');
@@ -537,4 +433,3 @@ window.addEventListener('load', ()=> {
 </script>
 </body>
 </html>
-
