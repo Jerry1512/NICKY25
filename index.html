@@ -4,6 +4,19 @@
 <meta charset="utf-8" />
 <meta name="viewport" content="width=device-width,initial-scale=1" />
 <title>NICKY25</title>
+
+<!-- Preload important assets so they appear reliably -->
+<link rel="preload" href="assets/KaiseHua.mp3" as="audio">
+<link rel="preload" href="assets/intro.jpeg" as="image">
+<link rel="preload" href="assets/ima1.jpeg" as="image">
+<link rel="preload" href="assets/ima2.jpeg" as="image">
+<link rel="preload" href="assets/ima3.jpeg" as="image">
+<link rel="preload" href="assets/SCREEN3.jpeg" as="image">
+<link rel="preload" href="assets/SCREEN5.jpeg" as="image">
+<link rel="preload" href="assets/ONE.jpeg" as="image">
+<link rel="preload" href="assets/TWO.jpeg" as="image">
+<link rel="preload" href="assets/THREE.jpeg" as="image">
+
 <style>
 :root{
   --white:#ffffff;
@@ -37,13 +50,13 @@ html,body{
 .panel.flipped .panel-inner{transform:rotateY(180deg)}
 
 /* faces */
-.face{position:absolute;inset:0;backface-visibility:hidden;display:flex;align-items:center;justify-content:center;overflow:hidden}
-.front{z-index:1;transform:rotateY(0deg)}
+.face{position:absolute;inset:0;display:flex;align-items:center;justify-content:center;overflow:hidden}
+.front{z-index:1;transform:rotateY(0deg);backface-visibility:hidden}          /* backface hidden */
 .front img{width:100%;height:100%;object-fit:cover;display:block}
 .front .overlay-title{position:absolute;inset:0;display:flex;align-items:center;justify-content:center;color:white;font-weight:800;font-size:clamp(14px,4vw,20px);z-index:3;background:transparent;pointer-events:none}
 
 /* BACK SIDE */
-.back{transform:rotateY(180deg);display:flex;align-items:center;justify-content:center;padding:18px;text-align:center;background:rgba(0,0,0,0.18)}
+.back{transform:rotateY(180deg);display:flex;align-items:center;justify-content:center;padding:18px;text-align:center;background:rgba(0,0,0,0.18);backface-visibility:hidden} /* backface hidden */
 .back .blur-image{position:absolute;inset:0;width:100%;height:100%;object-fit:cover;filter:blur(8px) brightness(.85);transform:scale(1.02);z-index:1}
 .back .panel-text{position:relative;z-index:3;font-size:clamp(12px,3vw,18px);line-height:1.45;text-shadow:0 6px 18px rgba(0,0,0,0.6);color:white}
 
@@ -61,7 +74,7 @@ html,body{
 #slides-wrap{position:absolute;inset:0;z-index:0;overflow:hidden}
 .slide{position:absolute;inset:0;background-size:cover;background-position:center;filter:blur(8px) brightness(.82);opacity:0;transition:opacity 1s ease}
 .slide.show{opacity:1}
-.final-line{color:#fff;font-weight:800;font-size:clamp(18px,4vw,30px);opacity:0;transform:translateY(10px);transition:opacity .9s,transform .9s;margin:12px 0}
+.final-line{color:#fff;font-weight:800;font-size:clamp(18px,4vw,30px);opacity:0;transform:translateY(10px);transition:opacity .9s,transform .9s;margin:14px 0} /* slightly larger spacing */
 
 /* small visible fallback play button if audio is blocked */
 #playFallback{
@@ -74,7 +87,7 @@ html,body{
 </head>
 <body>
 
-<!-- AUDIO -->
+<!-- AUDIO (must exist in assets folder) -->
 <audio id="bgm" src="assets/KaiseHua.mp3" preload="auto" autoplay muted loop></audio>
 <!-- visible fallback if browser refuses play — user can tap it to start audio -->
 <button id="playFallback" aria-hidden="true">Play music</button>
@@ -97,10 +110,10 @@ html,body{
     <div class="panel" id="p2-1" role="button" tabindex="0" data-index="1">
       <div class="panel-inner">
         <div class="face front">
-          <img src="assets/ima1.jpeg" alt="ima1 front">
+          <img src="assets/ima1.jpeg" alt="ima1 front" decoding="async">
         </div>
         <div class="face back">
-          <img class="blur-image" src="assets/ima1.jpeg" alt="ima1 blur">
+          <img class="blur-image" src="assets/ima1.jpeg" alt="ima1 blur" decoding="async">
           <div class="panel-text">
             Happiest birthday Nicky, always stay happy.<br>
             You’re one of the most precious parts of my life.<br>
@@ -115,10 +128,10 @@ html,body{
     <div class="panel" id="p2-2" role="button" tabindex="0" data-index="2">
       <div class="panel-inner">
         <div class="face front">
-          <img src="assets/ima2.jpeg" alt="ima2 front">
+          <img src="assets/ima2.jpeg" alt="ima2 front" decoding="async">
         </div>
         <div class="face back">
-          <img class="blur-image" src="assets/ima2.jpeg" alt="ima2 blur">
+          <img class="blur-image" src="assets/ima2.jpeg" alt="ima2 blur" decoding="async">
           <div class="panel-text">
             Your smile, your heart, your softness…<br>
             I fall for them a little more every day.
@@ -131,10 +144,10 @@ html,body{
     <div class="panel" id="p2-3" role="button" tabindex="0" data-index="3">
       <div class="panel-inner">
         <div class="face front">
-          <img src="assets/ima3.jpeg" alt="ima3 front">
+          <img src="assets/ima3.jpeg" alt="ima3 front" decoding="async">
         </div>
         <div class="face back">
-          <img class="blur-image" src="assets/ima3.jpeg" alt="ima3 blur">
+          <img class="blur-image" src="assets/ima3.jpeg" alt="ima3 blur" decoding="async">
           <div class="panel-text">
             No matter where life takes us,<br>
             my feelings for you will always stay the same—<br>
@@ -175,13 +188,13 @@ it all comes from a place that is real inside me.
     <div class="panel" id="p4-1" role="button" tabindex="0">
       <div class="panel-inner">
         <div class="face front">
-          <img src="assets/ONE.jpeg" alt="one front">
+          <img src="assets/ONE.jpeg" alt="one front" decoding="async">
           <div class="overlay-title" style="position:absolute;inset:0;display:flex;align-items:center;justify-content:center;color:white;font-weight:800;font-size:clamp(14px,4vw,20px);z-index:3;pointer-events:none">
             WHY I LOVE YOU
           </div>
         </div>
         <div class="face back">
-          <img class="blur-image" src="assets/ONE.jpeg" alt="one blur">
+          <img class="blur-image" src="assets/ONE.jpeg" alt="one blur" decoding="async">
           <div class="panel-text">I love you because you never give up on us.</div>
         </div>
       </div>
@@ -191,13 +204,13 @@ it all comes from a place that is real inside me.
     <div class="panel" id="p4-2" role="button" tabindex="0">
       <div class="panel-inner">
         <div class="face front">
-          <img src="assets/TWO.jpeg" alt="two front">
+          <img src="assets/TWO.jpeg" alt="two front" decoding="async">
           <div class="overlay-title" style="position:absolute;inset:0;display:flex;align-items:center;justify-content:center;color:white;font-weight:800;font-size:clamp(14px,4vw,20px);z-index:3;pointer-events:none">
             MY PROMISES TO YOU
           </div>
         </div>
         <div class="face back">
-          <img class="blur-image" src="assets/TWO.jpeg" alt="two blur">
+          <img class="blur-image" src="assets/TWO.jpeg" alt="two blur" decoding="async">
           <div class="panel-text">I promise I'll never let a girl come between us.</div>
         </div>
       </div>
@@ -207,13 +220,13 @@ it all comes from a place that is real inside me.
     <div class="panel" id="p4-3" role="button" tabindex="0">
       <div class="panel-inner">
         <div class="face front">
-          <img src="assets/THREE.jpeg" alt="three front">
+          <img src="assets/THREE.jpeg" alt="three front" decoding="async">
           <div class="overlay-title" style="position:absolute;inset:0;display:flex;align-items:center;justify-content:center;color:white;font-weight:800;font-size:clamp(14px,4vw,20px);z-index:3;pointer-events:none">
             THE FUTURE I WANT WITH YOU
           </div>
         </div>
         <div class="face back">
-          <img class="blur-image" src="assets/THREE.jpeg" alt="three blur">
+          <img class="blur-image" src="assets/THREE.jpeg" alt="three blur" decoding="async">
           <div class="panel-text">
             We get married with our parents' permission and work hard.<br>
             We have our own house.<br>
@@ -272,12 +285,12 @@ const playFallback = document.getElementById('playFallback');
 async function tryPlayAudio(){
   try{
     bgm.muted = false;
-    await bgm.play();
-    // hide fallback UI if visible
+    await bgm.play();                // attempt playback
     playFallback.style.display = 'none';
+    playFallback.setAttribute('aria-hidden','true');
     return true;
   }catch(e){
-    // show small fallback so user can manually enable sound
+    // If browser blocks autoplay, show small fallback button
     playFallback.style.display = 'block';
     playFallback.setAttribute('aria-hidden','false');
     return false;
@@ -287,7 +300,7 @@ async function tryPlayAudio(){
 // primary attempt: when user presses TAP TO OPEN
 openBtn.addEventListener('click', async ()=>{
   const ok = await tryPlayAudio();
-  // if not OK, we still advance to screen2 and keep fallback available
+  // advance to next screen regardless; fallback button will allow user to start audio manually
   showScreen('screen2');
 });
 
@@ -296,17 +309,13 @@ playFallback.addEventListener('click', async ()=>{
   await tryPlayAudio();
 });
 
-// extra safety: any panel click or global gesture will also try to unlock
+// extra safety: try to unlock on the first user gesture anywhere
 ['click','touchstart','keydown','scroll'].forEach(ev=>{
   const handler = async function(){ await tryPlayAudio(); document.removeEventListener(ev, handler); };
   document.addEventListener(ev, handler, {passive:true});
 });
 
 /* ------------ panel flipping logic (whole panel flips) ------------ */
-/* panels should show front image; when tapped panel gets .flipped which rotates .panel-inner;
-   the back face (blur + text) is visible only when flipped (z-index and backface visibility set in CSS).
-   After all panels flipped -> wait 5 seconds -> next screen
-*/
 function setupFlip(panelIds, nextScreen){
   const panels = panelIds.map(id => document.getElementById(id));
   const flipped = panels.map(()=>false);
@@ -314,17 +323,14 @@ function setupFlip(panelIds, nextScreen){
   panels.forEach((panel, idx)=>{
     if(!panel) return;
 
-    // handle click + keyboard activation (accessibility)
     const activate = (ev) => {
-      // don't trigger if already flipped
       if(panel.classList.contains('flipped')) return;
       panel.classList.add('flipped');
       flipped[idx] = true;
 
-      // ensure audio attempt on interaction
+      // try to start audio on interaction as well
       tryPlayAudio().catch(()=>{});
 
-      // if all flipped, wait 5s then go to next screen
       if(flipped.every(Boolean)){
         setTimeout(()=> showScreen(nextScreen), 5000);
       }
@@ -333,7 +339,7 @@ function setupFlip(panelIds, nextScreen){
     panel.addEventListener('click', activate, {passive:true});
     panel.addEventListener('keydown', (e)=>{ if(e.key==='Enter' || e.key===' ') { e.preventDefault(); activate(); } });
 
-    // stop back area clicks bubbling (prevents double triggers)
+    // stop back clicks from bubbling
     const back = panel.querySelector('.back');
     if(back) back.addEventListener('click', e=> e.stopPropagation(), {passive:true});
   });
@@ -385,22 +391,14 @@ function startFinalLoop(){
 
 /* init */
 window.addEventListener('load', ()=>{
-  // start at screen1
   showScreen('screen1');
-
-  // ensure no pre-flipped classes present
+  // clear any pre-flipped classes (safe)
   ['p2-1','p2-2','p2-3','p4-1','p4-2','p4-3'].forEach(id=>{
     const el = document.getElementById(id);
     if(el) el.classList.remove('flipped');
   });
-
-  // small: if audio file missing, show fallback button so user can manually play
-  // (we attempt once silently)
-  tryPlayAudio().then(ok=>{
-    if(!ok){
-      // fallback button already shown by tryPlayAudio when necessary
-    }
-  });
+  // attempt initial audio unlock once (silent)
+  tryPlayAudio().then(()=>{/* noop */});
 });
 </script>
 </body>
