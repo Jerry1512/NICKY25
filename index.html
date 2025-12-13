@@ -1,162 +1,163 @@
 <!doctype html>
 <html lang="en">
 <head>
-<meta charset="utf-8" />
-<meta name="viewport" content="width=device-width,initial-scale=1" />
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
 <title>NICKY25</title>
 
 <style>
 :root{
   --bg:#031226;
-  --white:#ffffff;
+  --white:#fff;
 }
-
 *{box-sizing:border-box}
-
 html,body{
-  margin:0;
-  width:100%;
-  height:100%;
-  background:var(--bg);
+  margin:0;height:100%;background:var(--bg);
   font-family:Poppins,system-ui,Arial;
   overflow:hidden;
 }
 
-/* ---------- SCREENS ---------- */
+/* screens */
 .screen{
-  position:fixed;
-  inset:0;
+  position:fixed;inset:0;
   display:flex;
   align-items:center;
   justify-content:center;
   flex-direction:column;
   opacity:0;
   pointer-events:none;
-  transition:opacity .45s ease;
+  transition:opacity .5s ease;
 }
-.screen.active{
-  opacity:1;
-  pointer-events:auto;
-}
+.screen.active{opacity:1;pointer-events:auto}
 
 .bg{
-  position:absolute;
-  inset:0;
+  position:absolute;inset:0;
   background-size:cover;
   background-position:center;
   filter:brightness(.9);
 }
 
-/* ---------- SCREEN 1 ---------- */
 .wrap{
-  z-index:2;
-  color:#fff;
+  position:relative;
+  z-index:5;
+  width:92%;
+  max-width:960px;
   text-align:center;
+  color:#fff;
 }
 
+/* screen 1 */
+.title1{font-size:clamp(22px,6vw,36px);font-weight:900}
+.subtitle1{opacity:.9;margin-top:.5rem}
 .tap-btn{
-  padding:14px 40px;
+  margin-top:1.2rem;
+  padding:.9rem 2.4rem;
   border-radius:30px;
-  border:none;
-  background:rgba(255,255,255,.15);
+  border:0;
+  background:rgba(255,255,255,.12);
   color:#fff;
   font-weight:800;
 }
 
-/* ---------- PANELS ---------- */
+/* panels (fade system) */
 .panel-container{
   width:92%;
   height:86%;
   display:flex;
   flex-direction:column;
-  justify-content:space-between;
+  gap:18px;
+  z-index:5;
 }
 
 .panel{
+  position:relative;
   height:30%;
-  perspective:1600px;
+  border-radius:14px;
+  overflow:hidden;
+  cursor:pointer;
 }
 
-.panel-inner{
+.panel img{
   width:100%;
   height:100%;
-  position:relative;
-  transform-style:preserve-3d;
-  -webkit-transform-style:preserve-3d;
-  transition:transform .7s cubic-bezier(.2,.8,.2,1);
+  object-fit:cover;
 }
 
-.panel.flipped .panel-inner{
-  transform:rotateY(180deg);
-}
-
-/* ---------- FACES ---------- */
-.face{
-  position:absolute;
-  inset:0;
+/* front */
+.panel-front{
+  position:absolute;inset:0;
   display:flex;
   align-items:center;
   justify-content:center;
-  backface-visibility:hidden;
-  -webkit-backface-visibility:hidden;
-  transform-style:preserve-3d;
-  -webkit-transform-style:preserve-3d;
+  transition:opacity .6s ease;
+  z-index:2;
 }
 
-.front img{
-  width:100%;
-  height:100%;
-  object-fit:cover;
+/* back */
+.panel-back{
+  position:absolute;inset:0;
+  opacity:0;
+  transition:opacity .6s ease;
+  z-index:1;
 }
 
-/* BACK */
-.back{
-  transform:rotateY(180deg) translateZ(1px);
-  background:#000;
-}
-
-.back img{
-  position:absolute;
-  inset:0;
-  width:100%;
-  height:100%;
-  object-fit:cover;
-  filter:blur(10px) brightness(.75);
+.panel-back img{
+  position:absolute;inset:0;
+  filter:blur(8px) brightness(.8);
 }
 
 .panel-text{
   position:relative;
-  z-index:2;
-  padding:18px;
+  z-index:3;
   color:#fff;
-  font-size:16px;
-  text-align:center;
-  text-shadow:0 6px 20px rgba(0,0,0,.6);
+  font-size:clamp(13px,3.4vw,18px);
+  line-height:1.5;
+  padding:18px;
+  text-shadow:0 6px 18px rgba(0,0,0,.6);
 }
 
-/* ---------- AUDIO BUTTON ---------- */
-#playFallback{
-  position:fixed;
-  right:18px;
-  bottom:18px;
-  z-index:999;
-  padding:10px 16px;
-  border-radius:10px;
-  border:none;
-  display:none;
-}
+/* revealed */
+.panel.reveal .panel-front{opacity:0}
+.panel.reveal .panel-back{opacity:1}
 
-/* ---------- FINAL ---------- */
+/* letter */
+.letter-wrap{
+  background:rgba(255,255,255,.06);
+  backdrop-filter:blur(6px);
+  border-radius:14px;
+  padding:26px;
+}
+.letter-title{font-size:clamp(22px,5vw,34px);font-weight:900}
+.letter-text{line-height:1.6;white-space:pre-wrap;text-align:left}
+
+/* screen 5 */
 .slide{
-  position:absolute;
-  inset:0;
+  position:absolute;inset:0;
   background-size:cover;
   background-position:center;
   filter:blur(8px) brightness(.8);
   opacity:0;
-  transition:opacity 1s;
+  transition:opacity 1s ease;
 }
 .slide.show{opacity:1}
+
+.final-line{
+  margin:14px 0;
+  font-size:clamp(18px,4vw,30px);
+  font-weight:800;
+  opacity:0;
+  transform:translateY(10px);
+  transition:.9s;
+}
+
+/* music fallback */
+#playFallback{
+  position:fixed;
+  right:18px;bottom:18px;
+  padding:.6rem 1rem;
+  display:none;
+  font-weight:700;
+}
 </style>
 </head>
 
@@ -169,7 +170,8 @@ html,body{
 <section id="screen1" class="screen active">
   <div class="bg" style="background-image:url('assets/intro.jpeg')"></div>
   <div class="wrap">
-    <h1>HAPPY BIRTHDAY JANUDI</h1>
+    <div class="title1">HAPPY BIRTHDAY JANUDI</div>
+    <div class="subtitle1">A SPECIAL DAY FOR THE LOVE OF MY LIFE</div>
     <button id="openBtn" class="tap-btn">TAP TO OPEN</button>
   </div>
 </section>
@@ -180,44 +182,35 @@ html,body{
   <div class="panel-container">
 
     <div class="panel" id="p2-1">
-      <div class="panel-inner">
-        <div class="face front">
-          <img src="assets/ima1.jpeg">
-        </div>
-        <div class="face back">
-          <img src="assets/ima1.jpeg">
-          <div class="panel-text">
-            Happiest birthday Nicky.<br>
-            You are my safest place.
-          </div>
+      <div class="panel-front"><img src="assets/ima1.jpeg"></div>
+      <div class="panel-back">
+        <img src="assets/ima1.jpeg">
+        <div class="panel-text">
+          Happiest birthday Nicky.<br>
+          You’re one of the most precious parts of my life.<br>
+          Every moment with you feels safe and warm.
         </div>
       </div>
     </div>
 
     <div class="panel" id="p2-2">
-      <div class="panel-inner">
-        <div class="face front">
-          <img src="assets/ima2.jpeg">
-        </div>
-        <div class="face back">
-          <img src="assets/ima2.jpeg">
-          <div class="panel-text">
-            Your smile is my favourite thing.
-          </div>
+      <div class="panel-front"><img src="assets/ima2.jpeg"></div>
+      <div class="panel-back">
+        <img src="assets/ima2.jpeg">
+        <div class="panel-text">
+          Your smile, your heart,<br>
+          I fall for them more every day.
         </div>
       </div>
     </div>
 
     <div class="panel" id="p2-3">
-      <div class="panel-inner">
-        <div class="face front">
-          <img src="assets/ima3.jpeg">
-        </div>
-        <div class="face back">
-          <img src="assets/ima3.jpeg">
-          <div class="panel-text">
-            I choose you. Always.
-          </div>
+      <div class="panel-front"><img src="assets/ima3.jpeg"></div>
+      <div class="panel-back">
+        <img src="assets/ima3.jpeg">
+        <div class="panel-text">
+          No matter where life takes us,<br>
+          my feelings for you stay the same.
         </div>
       </div>
     </div>
@@ -225,34 +218,102 @@ html,body{
   </div>
 </section>
 
+<!-- SCREEN 3 -->
+<section id="screen3" class="screen">
+  <div class="bg" style="background-image:url('assets/ima3.jpeg')"></div>
+  <div class="wrap letter-wrap">
+    <div class="letter-title">HAPPIEST BIRTHDAY JANUDIIII</div>
+    <div class="letter-text">
+You make life softer and brighter just by being in it.
+Thank you for choosing me.
+Every word here comes from my heart.
+    </div>
+  </div>
+  <div onclick="showScreen('screen4')" style="position:absolute;inset:0"></div>
+</section>
+
+<!-- SCREEN 4 -->
+<section id="screen4" class="screen">
+  <div class="bg" style="background-image:url('assets/SCREEN5.jpeg')"></div>
+  <div class="panel-container">
+
+    <div class="panel" id="p4-1">
+      <div class="panel-front"><img src="assets/ONE.jpeg"></div>
+      <div class="panel-back">
+        <img src="assets/ONE.jpeg">
+        <div class="panel-text">I love you because you never give up on us.</div>
+      </div>
+    </div>
+
+    <div class="panel" id="p4-2">
+      <div class="panel-front"><img src="assets/TWO.jpeg"></div>
+      <div class="panel-back">
+        <img src="assets/TWO.jpeg">
+        <div class="panel-text">I promise I will always choose you.</div>
+      </div>
+    </div>
+
+    <div class="panel" id="p4-3">
+      <div class="panel-front"><img src="assets/THREE.jpeg"></div>
+      <div class="panel-back">
+        <img src="assets/THREE.jpeg">
+        <div class="panel-text">
+          A life together.<br>
+          A home.<br>
+          Every morning side by side.
+        </div>
+      </div>
+    </div>
+
+  </div>
+</section>
+
+<!-- SCREEN 5 -->
+<section id="screen5" class="screen">
+  <div id="slides">
+    <div class="slide" style="background-image:url('assets/intro.jpeg')"></div>
+    <div class="slide" style="background-image:url('assets/ima1.jpeg')"></div>
+    <div class="slide" style="background-image:url('assets/ima2.jpeg')"></div>
+  </div>
+  <div class="wrap">
+    <div class="final-line">WITH ALL MY LOVE</div>
+    <div class="final-line">FOREVER YOURS</div>
+    <div class="final-line">YOURS, JERRY</div>
+  </div>
+</section>
+
 <script>
-const bgm = document.getElementById('bgm');
-const playFallback = document.getElementById('playFallback');
+const bgm=document.getElementById('bgm');
+const playFallback=document.getElementById('playFallback');
 
-function tryPlay(){
-  bgm.play().then(()=>playFallback.style.display='none')
-  .catch(()=>playFallback.style.display='block');
-}
-
-document.getElementById('openBtn').onclick=()=>{
-  tryPlay();
-  show('screen2');
-};
-
-playFallback.onclick=tryPlay;
-
-function show(id){
+function showScreen(id){
   document.querySelectorAll('.screen').forEach(s=>s.classList.remove('active'));
   document.getElementById(id).classList.add('active');
 }
 
-['p2-1','p2-2','p2-3'].forEach(id=>{
-  document.getElementById(id).onclick=e=>{
-    e.currentTarget.classList.add('flipped');
-  }
-});
+document.getElementById('openBtn').onclick=async()=>{
+  try{await bgm.play()}catch{playFallback.style.display='block'}
+  showScreen('screen2');
+};
+
+playFallback.onclick=()=>bgm.play();
+
+function setupPanels(ids,next){
+  const flipped=[];
+  ids.forEach((id,i)=>{
+    const p=document.getElementById(id);
+    p.onclick=()=>{
+      if(flipped[i])return;
+      p.classList.add('reveal');
+      flipped[i]=true;
+      if(flipped.every(Boolean))setTimeout(()=>showScreen(next),4000);
+    };
+  });
+}
+
+setupPanels(['p2-1','p2-2','p2-3'],'screen3');
+setupPanels(['p4-1','p4-2','p4-3'],'screen5');
 </script>
 
 </body>
 </html>
-<!-- rebuild -->
