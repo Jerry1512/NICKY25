@@ -1,0 +1,332 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>NICKY25</title>
+
+<style>
+:root{
+  --bg:#031226;
+  --white:#fff;
+}
+*{box-sizing:border-box}
+html,body{
+  margin:0;height:100%;width:100%;
+  background:var(--bg);
+  font-family:Poppins,system-ui,Arial;
+  overflow:hidden;
+}
+
+.screen{
+  position:fixed;inset:0;
+  display:flex;
+  align-items:center;
+  justify-content:center;
+  flex-direction:column;
+  opacity:0;
+  pointer-events:none;
+  transition:opacity .6s ease;
+}
+.screen.active{
+  opacity:1;
+  pointer-events:auto;
+}
+
+.bg{
+  position:absolute;
+  inset:0;
+  background-size:cover;
+  background-position:center;
+  filter:brightness(.9);
+}
+
+.wrap{
+  position:relative;
+  z-index:5;
+  width:92%;
+  max-width:960px;
+  text-align:center;
+  color:#fff;
+}
+
+/* ---------- SCREEN 1 ---------- */
+#screen1 .wrap{padding-top:12vh}
+.tap-btn{
+  margin-top:20px;
+  padding:14px 36px;
+  border-radius:30px;
+  border:none;
+  background:rgba(255,255,255,.1);
+  color:#fff;
+  font-weight:800;
+}
+
+/* ---------- PANELS ---------- */
+.panel-container{
+  width:92%;
+  height:86%;
+  display:flex;
+  flex-direction:column;
+  justify-content:space-between;
+  gap:18px;
+}
+.panel{
+  position:relative;
+  height:30%;
+  border-radius:14px;
+  overflow:hidden;
+  cursor:pointer;
+}
+.panel img{
+  width:100%;
+  height:100%;
+  object-fit:cover;
+}
+.panel .back{
+  position:absolute;
+  inset:0;
+  background-size:cover;
+  background-position:center;
+  filter:blur(8px) brightness(.85);
+  opacity:0;
+  transition:opacity .5s ease;
+}
+.panel .text{
+  position:absolute;
+  inset:0;
+  display:flex;
+  align-items:center;
+  justify-content:center;
+  text-align:center;
+  padding:18px;
+  font-size:clamp(14px,3.5vw,18px);
+  opacity:0;
+  transition:opacity .5s ease;
+}
+.panel.revealed .back,
+.panel.revealed .text{
+  opacity:1;
+}
+
+/* ---------- SCREEN 3 ---------- */
+.letter{
+  background:rgba(255,255,255,.06);
+  padding:26px;
+  border-radius:14px;
+  text-align:left;
+}
+
+/* ---------- SCREEN 5 ---------- */
+.slide{
+  position:absolute;
+  inset:0;
+  background-size:cover;
+  background-position:center;
+  filter:blur(8px) brightness(.8);
+  opacity:0;
+  transition:opacity 1s ease;
+}
+.slide.show{opacity:1}
+
+.final-line{
+  font-size:clamp(18px,4vw,30px);
+  font-weight:800;
+  opacity:0;
+  transition:opacity 1s ease;
+  margin:12px 0;
+}
+
+/* ---------- AUDIO ---------- */
+#playFallback{
+  position:fixed;
+  right:18px;
+  bottom:18px;
+  padding:10px 16px;
+  border-radius:8px;
+  border:none;
+  display:none;
+}
+</style>
+</head>
+
+<body>
+
+<audio id="bgm" src="assets/KaiseHua.mp3" autoplay muted loop></audio>
+<button id="playFallback">Play music</button>
+
+<!-- SCREEN 1 -->
+<section id="screen1" class="screen active">
+  <div class="bg" style="background-image:url('assets/intro.jpeg')"></div>
+  <div class="wrap">
+    <h1>HAPPY BIRTHDAY JANUDI</h1>
+    <p>A SPECIAL DAY FOR THE LOVE OF MY LIFE</p>
+    <button id="openBtn" class="tap-btn">TAP TO OPEN</button>
+  </div>
+</section>
+
+<!-- SCREEN 2 -->
+<section id="screen2" class="screen">
+  <div class="bg" style="background-image:url('assets/SCREEN3.jpeg')"></div>
+  <div class="panel-container">
+
+    <div class="panel" data-next>
+      <img src="assets/ima1.jpeg">
+      <div class="back" style="background-image:url('assets/ima1.jpeg')"></div>
+      <div class="text">
+        Happiest birthday Nicky, always stay happy.<br>
+        You’re one of the most precious parts of my life.<br>
+        Every moment with you feels warm, soft, and safe.
+      </div>
+    </div>
+
+    <div class="panel" data-next>
+      <img src="assets/ima2.jpeg">
+      <div class="back" style="background-image:url('assets/ima2.jpeg')"></div>
+      <div class="text">
+        Your smile, your heart, your softness…<br>
+        I fall for them a little more every day.
+      </div>
+    </div>
+
+    <div class="panel" data-next>
+      <img src="assets/ima3.jpeg">
+      <div class="back" style="background-image:url('assets/ima3.jpeg')"></div>
+      <div class="text">
+        No matter where life takes us,<br>
+        my feelings for you will always stay the same—<br>
+        pure, patient, gentle, and true.
+      </div>
+    </div>
+
+  </div>
+</section>
+
+<!-- SCREEN 3 -->
+<section id="screen3" class="screen">
+  <div class="bg" style="background-image:url('assets/ima3.jpeg')"></div>
+  <div class="wrap letter">
+If I could describe what you mean to me.
+I would say you're a rare kind of warmth—the kind that stays with me even on the coldest days.
+You make life softer, happier, and more meaningful just by being in it.
+I'm grateful for you in ways words will never fully express.
+Thank you for being you.
+for being real.
+for being someone my heart chose without hesitation.
+I may not always say it perfectly,
+but every word comes from a real place inside me.
+  </div>
+</section>
+
+<!-- SCREEN 4 -->
+<section id="screen4" class="screen">
+  <div class="bg" style="background-image:url('assets/SCREEN5.jpeg')"></div>
+  <div class="panel-container">
+
+    <div class="panel" data-next>
+      <img src="assets/ONE.jpeg">
+      <div class="back" style="background-image:url('assets/ONE.jpeg')"></div>
+      <div class="text">I love you because you never give up on us.</div>
+    </div>
+
+    <div class="panel" data-next>
+      <img src="assets/TWO.jpeg">
+      <div class="back" style="background-image:url('assets/TWO.jpeg')"></div>
+      <div class="text">I promise I'll never let anyone come between us.</div>
+    </div>
+
+    <div class="panel" data-next>
+      <img src="assets/THREE.jpeg">
+      <div class="back" style="background-image:url('assets/THREE.jpeg')"></div>
+      <div class="text">
+        We build a life together.<br>
+        A home. A future.<br>
+        Every morning, side by side.
+      </div>
+    </div>
+
+  </div>
+</section>
+
+<!-- SCREEN 5 -->
+<section id="screen5" class="screen">
+  <div class="slide show" style="background-image:url('assets/intro.jpeg')"></div>
+  <div class="slide" style="background-image:url('assets/ima1.jpeg')"></div>
+  <div class="slide" style="background-image:url('assets/ima2.jpeg')"></div>
+  <div class="slide" style="background-image:url('assets/ima3.jpeg')"></div>
+
+  <div class="wrap">
+    <div class="final-line">WITH ALL MY LOVE (:</div>
+    <div class="final-line">FOREVER YOURS….</div>
+    <div class="final-line">THANK YOU FOR LETTING ME LOVE YOU…</div>
+    <div class="final-line">SOME LOVE STORIES DON’T NEED WORDS</div>
+    <div class="final-line">YOURS, JERRY</div>
+  </div>
+</section>
+
+<script>
+const screens=id=>document.getElementById(id);
+function show(id){
+  document.querySelectorAll('.screen').forEach(s=>s.classList.remove('active'));
+  screens(id).classList.add('active');
+}
+
+/* AUDIO */
+const bgm=document.getElementById('bgm');
+const playFallback=document.getElementById('playFallback');
+async function playAudio(){
+  try{
+    bgm.muted=false;
+    await bgm.play();
+    playFallback.style.display='none';
+  }catch{
+    playFallback.style.display='block';
+  }
+}
+playFallback.onclick=playAudio;
+document.body.addEventListener('click',playAudio,{once:true});
+
+/* SCREEN FLOW */
+openBtn.onclick=()=>{playAudio();show('screen2');};
+
+function setupPanels(section,next,delay){
+  const panels=[...section.querySelectorAll('.panel')];
+  let count=0;
+  panels.forEach(p=>{
+    p.onclick=()=>{
+      if(p.classList.contains('revealed'))return;
+      p.classList.add('revealed');
+      count++;
+      if(count===panels.length){
+        setTimeout(()=>show(next),delay);
+      }
+    };
+  });
+}
+
+setupPanels(screen2,'screen3',5000);
+setupPanels(screen4,'screen5',3000);
+
+/* SCREEN 3 → SCREEN 4 */
+screen3.onclick=()=>show('screen4');
+
+/* SCREEN 5 SLIDES */
+let slides=[...document.querySelectorAll('.slide')];
+let idx=0;
+setInterval(()=>{
+  slides[idx].classList.remove('show');
+  idx=(idx+1)%slides.length;
+  slides[idx].classList.add('show');
+},2000);
+
+let lines=[...document.querySelectorAll('.final-line')];
+let i=0;
+setInterval(()=>{
+  lines.forEach(l=>l.style.opacity=0);
+  lines[i].style.opacity=1;
+  i=(i+1)%lines.length;
+},2000);
+</script>
+
+</body>
+</html>
