@@ -1,0 +1,257 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8" />
+<meta name="viewport" content="width=device-width,initial-scale=1" />
+<title>NICKY25</title>
+
+<style>
+:root{
+  --bg:#031226;
+  --white:#ffffff;
+}
+
+*{box-sizing:border-box}
+
+html,body{
+  margin:0;
+  width:100%;
+  height:100%;
+  background:var(--bg);
+  font-family:Poppins,system-ui,Arial;
+  overflow:hidden;
+}
+
+/* ---------- SCREENS ---------- */
+.screen{
+  position:fixed;
+  inset:0;
+  display:flex;
+  align-items:center;
+  justify-content:center;
+  flex-direction:column;
+  opacity:0;
+  pointer-events:none;
+  transition:opacity .45s ease;
+}
+.screen.active{
+  opacity:1;
+  pointer-events:auto;
+}
+
+.bg{
+  position:absolute;
+  inset:0;
+  background-size:cover;
+  background-position:center;
+  filter:brightness(.9);
+}
+
+/* ---------- SCREEN 1 ---------- */
+.wrap{
+  z-index:2;
+  color:#fff;
+  text-align:center;
+}
+
+.tap-btn{
+  padding:14px 40px;
+  border-radius:30px;
+  border:none;
+  background:rgba(255,255,255,.15);
+  color:#fff;
+  font-weight:800;
+}
+
+/* ---------- PANELS ---------- */
+.panel-container{
+  width:92%;
+  height:86%;
+  display:flex;
+  flex-direction:column;
+  justify-content:space-between;
+}
+
+.panel{
+  height:30%;
+  perspective:1600px;
+}
+
+.panel-inner{
+  width:100%;
+  height:100%;
+  position:relative;
+  transform-style:preserve-3d;
+  -webkit-transform-style:preserve-3d;
+  transition:transform .7s cubic-bezier(.2,.8,.2,1);
+}
+
+.panel.flipped .panel-inner{
+  transform:rotateY(180deg);
+}
+
+/* ---------- FACES ---------- */
+.face{
+  position:absolute;
+  inset:0;
+  display:flex;
+  align-items:center;
+  justify-content:center;
+  backface-visibility:hidden;
+  -webkit-backface-visibility:hidden;
+  transform-style:preserve-3d;
+  -webkit-transform-style:preserve-3d;
+}
+
+.front img{
+  width:100%;
+  height:100%;
+  object-fit:cover;
+}
+
+/* BACK */
+.back{
+  transform:rotateY(180deg) translateZ(1px);
+  background:#000;
+}
+
+.back img{
+  position:absolute;
+  inset:0;
+  width:100%;
+  height:100%;
+  object-fit:cover;
+  filter:blur(10px) brightness(.75);
+}
+
+.panel-text{
+  position:relative;
+  z-index:2;
+  padding:18px;
+  color:#fff;
+  font-size:16px;
+  text-align:center;
+  text-shadow:0 6px 20px rgba(0,0,0,.6);
+}
+
+/* ---------- AUDIO BUTTON ---------- */
+#playFallback{
+  position:fixed;
+  right:18px;
+  bottom:18px;
+  z-index:999;
+  padding:10px 16px;
+  border-radius:10px;
+  border:none;
+  display:none;
+}
+
+/* ---------- FINAL ---------- */
+.slide{
+  position:absolute;
+  inset:0;
+  background-size:cover;
+  background-position:center;
+  filter:blur(8px) brightness(.8);
+  opacity:0;
+  transition:opacity 1s;
+}
+.slide.show{opacity:1}
+</style>
+</head>
+
+<body>
+
+<audio id="bgm" src="assets/KaiseHua.mp3" loop></audio>
+<button id="playFallback">Play music</button>
+
+<!-- SCREEN 1 -->
+<section id="screen1" class="screen active">
+  <div class="bg" style="background-image:url('assets/intro.jpeg')"></div>
+  <div class="wrap">
+    <h1>HAPPY BIRTHDAY JANUDI</h1>
+    <button id="openBtn" class="tap-btn">TAP TO OPEN</button>
+  </div>
+</section>
+
+<!-- SCREEN 2 -->
+<section id="screen2" class="screen">
+  <div class="bg" style="background-image:url('assets/SCREEN3.jpeg')"></div>
+  <div class="panel-container">
+
+    <div class="panel" id="p2-1">
+      <div class="panel-inner">
+        <div class="face front">
+          <img src="assets/ima1.jpeg">
+        </div>
+        <div class="face back">
+          <img src="assets/ima1.jpeg">
+          <div class="panel-text">
+            Happiest birthday Nicky.<br>
+            You are my safest place.
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <div class="panel" id="p2-2">
+      <div class="panel-inner">
+        <div class="face front">
+          <img src="assets/ima2.jpeg">
+        </div>
+        <div class="face back">
+          <img src="assets/ima2.jpeg">
+          <div class="panel-text">
+            Your smile is my favourite thing.
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <div class="panel" id="p2-3">
+      <div class="panel-inner">
+        <div class="face front">
+          <img src="assets/ima3.jpeg">
+        </div>
+        <div class="face back">
+          <img src="assets/ima3.jpeg">
+          <div class="panel-text">
+            I choose you. Always.
+          </div>
+        </div>
+      </div>
+    </div>
+
+  </div>
+</section>
+
+<script>
+const bgm = document.getElementById('bgm');
+const playFallback = document.getElementById('playFallback');
+
+function tryPlay(){
+  bgm.play().then(()=>playFallback.style.display='none')
+  .catch(()=>playFallback.style.display='block');
+}
+
+document.getElementById('openBtn').onclick=()=>{
+  tryPlay();
+  show('screen2');
+};
+
+playFallback.onclick=tryPlay;
+
+function show(id){
+  document.querySelectorAll('.screen').forEach(s=>s.classList.remove('active'));
+  document.getElementById(id).classList.add('active');
+}
+
+['p2-1','p2-2','p2-3'].forEach(id=>{
+  document.getElementById(id).onclick=e=>{
+    e.currentTarget.classList.add('flipped');
+  }
+});
+</script>
+
+</body>
+</html>
