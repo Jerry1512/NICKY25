@@ -65,16 +65,18 @@ html,body{
 .front img,.back img{
   width:100%;height:100%;object-fit:cover;
 }
-.back{transform:rotateY(180deg)}
-.back img{filter:blur(10px) brightness(.7)}
-
+.back{
+  transform:rotateY(180deg);
+}
+.back img{
+  filter:blur(10px) brightness(.7);
+}
 .panel-text{
   position:absolute;z-index:2;
   padding:22px;
   font-size:clamp(14px,4vw,18px);
   line-height:1.6;
   text-shadow:0 6px 20px rgba(0,0,0,.9);
-  text-align:center;
 }
 
 /* SCREEN 3 */
@@ -132,20 +134,28 @@ html,body{
 <div class="panel" id="p2-1"><div class="panel-inner">
 <div class="face front"><img src="assets/ima1.jpeg"></div>
 <div class="face back"><img src="assets/ima1.jpeg">
-<div class="panel-text">“I may not always say it perfectly…”</div>
-</div></div></div>
+<div class="panel-text">
+“I may not always say it perfectly, and I may not always express everything the right way…
+but every word I write for you, every feeling I share — it all comes from a place that is real inside me.”
+</div></div></div></div>
 
 <div class="panel" id="p2-2"><div class="panel-inner">
 <div class="face front"><img src="assets/ima2.jpeg"></div>
 <div class="face back"><img src="assets/ima2.jpeg">
-<div class="panel-text">“You’ve changed the meaning of love for me.”</div>
-</div></div></div>
+<div class="panel-text">
+“You’ve changed the meaning of love for me.
+You’ve shown me what calm feels like, what softness feels like,
+what it means to be cared for without being asked.”
+</div></div></div></div>
 
 <div class="panel" id="p2-3"><div class="panel-inner">
 <div class="face front"><img src="assets/ima3.jpeg"></div>
 <div class="face back"><img src="assets/ima3.jpeg">
-<div class="panel-text">“Loving you has been the most beautiful decision.”</div>
-</div></div></div>
+<div class="panel-text">
+“And if there is one thing I am always sure about…
+it’s that loving you has been the most beautiful decision of my life —
+one I would make again, every single time.”
+</div></div></div></div>
 
 </div>
 </section>
@@ -160,45 +170,43 @@ If I could describe what you mean to me.
 I would say you're a rare kind of warmth—the kind that stays with me even on the coldest days.
 You make life softer, happier, and more meaningful just by being in it.
 I'm grateful for you in ways words will never fully express.
+Thank you for being you.
+for being real.
+for being someone my heart chose without hesitation.
+I may not always say it perfectly, and I may not always express everything the right way…
+but every word I write for you, every feeling I share — it all comes from a place that is real inside me
 </p>
 </div>
 </section>
 
-<!-- SCREEN 4 (FIXED FRONT TEXT ONLY) -->
+<!-- SCREEN 4 -->
 <section id="screen4" class="screen">
 <div class="bg" style="background-image:url('assets/SCREEN5.jpeg')"></div>
 <div class="panel-container">
 
 <div class="panel" id="p4-1"><div class="panel-inner">
-<div class="face front">
-  <img src="assets/ONE.jpeg">
-  <div class="panel-text">WHY I LOVE YOU</div>
-</div>
+<div class="face front"><img src="assets/ONE.jpeg"></div>
 <div class="face back"><img src="assets/ONE.jpeg">
-<div class="panel-text">I love you because you never give up on us.</div>
-</div></div></div>
+<div class="panel-text">
+I love you because you never give up on us.
+</div></div></div></div>
 
 <div class="panel" id="p4-2"><div class="panel-inner">
-<div class="face front">
-  <img src="assets/TWO.jpeg">
-  <div class="panel-text">MY PROMISES TO YOU</div>
-</div>
+<div class="face front"><img src="assets/TWO.jpeg"></div>
 <div class="face back"><img src="assets/TWO.jpeg">
-<div class="panel-text">I promise I'll never let a girl come between us, my loyalty and heart....</div>
-</div></div></div>
+<div class="panel-text">
+I promise I'll never let a girl come between us,
+my loyalty and heart....
+</div></div></div></div>
 
 <div class="panel" id="p4-3"><div class="panel-inner">
-<div class="face front">
-  <img src="assets/THREE.jpeg">
-  <div class="panel-text">THE FUTURE I WANT WITH YOU</div>
-</div>
+<div class="face front"><img src="assets/THREE.jpeg"></div>
 <div class="face back"><img src="assets/THREE.jpeg">
 <div class="panel-text">
 We get married with our parents' permission and work hard.
 We have our own house.
 Every morning we wake up beside each other.
-</div>
-</div></div></div>
+</div></div></div></div>
 
 </div>
 </section>
@@ -245,8 +253,17 @@ setTimeout(()=>show(next),delay);
 });
 }
 
-setup([p2-1,p2-2,p2-3],'screen3',5000);
-setup([p4-1,p4-2,p4-3],'screen5',3000);
+setup([
+document.getElementById('p2-1'),
+document.getElementById('p2-2'),
+document.getElementById('p2-3')
+],'screen3',5000);
+
+setup([
+document.getElementById('p4-1'),
+document.getElementById('p4-2'),
+document.getElementById('p4-3')
+],'screen5',3000);
 
 document.getElementById('screen3').onclick=()=>show('screen4');
 
@@ -257,6 +274,21 @@ slides[si].classList.remove('show');
 si=(si+1)%slides.length;
 slides[si].classList.add('show');
 },2500);
+
+let lines=[...document.querySelectorAll('.final-line')];
+function loopText(){
+let d=0;
+lines.forEach(l=>{
+setTimeout(()=>{l.style.opacity=1;l.style.transform='translateY(0)'},d);
+d+=1500;
+});
+setTimeout(()=>{
+lines.forEach((l,i)=>{
+setTimeout(()=>{l.style.opacity=0},i*700);
+});
+},d+1000);
+}
+setInterval(loopText,12000);
 </script>
 
 </body>
