@@ -9,16 +9,16 @@
 *{box-sizing:border-box}
 html,body{
   margin:0;height:100%;width:100%;
-  background:#031226;
+  background:#031226;color:#fff;
   font-family:Poppins,Arial;
-  overflow:hidden;color:#fff;
+  overflow:hidden;
 }
 .screen{
   position:fixed;inset:0;
   display:flex;align-items:center;justify-content:center;
   flex-direction:column;
   opacity:0;pointer-events:none;
-  transition:opacity .6s ease;
+  transition:opacity .7s ease;
 }
 .screen.active{opacity:1;pointer-events:auto}
 .bg{
@@ -26,39 +26,39 @@ html,body{
   background-size:cover;background-position:center;
   filter:brightness(.9);
 }
-.wrap{position:relative;z-index:5;width:90%;max-width:900px;text-align:center}
+.wrap{position:relative;z-index:5;width:92%;max-width:900px;text-align:center}
 
-/* screen 1 */
+/* SCREEN 1 */
 .title1{font-size:clamp(24px,6vw,38px);font-weight:900}
-.subtitle1{margin-top:8px}
+.subtitle1{margin-top:10px}
 .tap-btn{
-  margin-top:20px;padding:14px 40px;
+  margin-top:22px;padding:14px 40px;
   border-radius:30px;border:none;
   background:rgba(255,255,255,.15);
   color:#fff;font-weight:800;
 }
 
-/* panels */
+/* PANELS */
 .panel-container{
   width:92%;height:86%;
   display:flex;flex-direction:column;
   gap:18px;justify-content:space-between;
 }
 .panel{
-  height:30%;border-radius:22px;
-  perspective:1200px;cursor:pointer;
+  height:30%;border-radius:26px;
+  perspective:1400px;cursor:pointer;
 }
 .panel-inner{
   width:100%;height:100%;
   transform-style:preserve-3d;
-  transition:transform .7s ease;
-  border-radius:22px;
+  transition:transform .75s ease;
+  border-radius:26px;
 }
 .panel.flipped .panel-inner{transform:rotateY(180deg)}
 .face{
   position:absolute;inset:0;
   backface-visibility:hidden;
-  border-radius:22px;
+  border-radius:26px;
   overflow:hidden;
   display:flex;align-items:center;justify-content:center;
 }
@@ -75,21 +75,28 @@ html,body{
   position:absolute;z-index:2;
   padding:22px;
   font-size:clamp(14px,4vw,18px);
-  line-height:1.55;
-  text-shadow:0 4px 14px rgba(0,0,0,.9);
+  line-height:1.6;
+  text-shadow:0 6px 20px rgba(0,0,0,.9);
 }
 
-/* screen 3 */
+/* SCREEN 3 */
 .letter{
   background:rgba(255,255,255,.08);
-  border-radius:22px;
+  border-radius:24px;
   padding:26px;
   backdrop-filter:blur(6px);
 }
-.letter h2{margin-top:0;font-size:clamp(22px,5vw,34px)}
-.letter p{white-space:pre-wrap;text-align:left;line-height:1.6}
+.letter h2{
+  font-size:clamp(22px,5vw,34px);
+  margin-top:0;text-align:center;
+}
+.letter p{
+  white-space:pre-wrap;
+  line-height:1.6;
+  text-align:left;
+}
 
-/* screen 5 */
+/* SCREEN 5 */
 .slide{
   position:absolute;inset:0;
   background-size:cover;background-position:center;
@@ -100,7 +107,7 @@ html,body{
   font-size:clamp(18px,4.5vw,30px);
   font-weight:800;
   opacity:0;transform:translateY(12px);
-  transition:.9s;
+  transition:.9s;margin:14px 0;
 }
 </style>
 </head>
@@ -128,23 +135,26 @@ html,body{
 <div class="face front"><img src="assets/ima1.jpeg"></div>
 <div class="face back"><img src="assets/ima1.jpeg">
 <div class="panel-text">
-I may not always say it perfectly...
-but every word I write for you comes from something real inside me.
+“I may not always say it perfectly, and I may not always express everything the right way…
+but every word I write for you, every feeling I share — it all comes from a place that is real inside me.”
 </div></div></div></div>
 
 <div class="panel" id="p2-2"><div class="panel-inner">
 <div class="face front"><img src="assets/ima2.jpeg"></div>
 <div class="face back"><img src="assets/ima2.jpeg">
 <div class="panel-text">
-You changed the meaning of love for me.
-You showed me calm, softness, and care.
+“You’ve changed the meaning of love for me.
+You’ve shown me what calm feels like, what softness feels like,
+what it means to be cared for without being asked.”
 </div></div></div></div>
 
 <div class="panel" id="p2-3"><div class="panel-inner">
 <div class="face front"><img src="assets/ima3.jpeg"></div>
 <div class="face back"><img src="assets/ima3.jpeg">
 <div class="panel-text">
-Loving you was the most beautiful decision of my life.
+“And if there is one thing I am always sure about…
+it’s that loving you has been the most beautiful decision of my life —
+one I would make again, every single time.”
 </div></div></div></div>
 
 </div>
@@ -156,8 +166,15 @@ Loving you was the most beautiful decision of my life.
 <div class="wrap letter">
 <h2>Happiest birthday JANUDIIII.</h2>
 <p>
-If I could describe what you mean to me...
-every word I write for you comes from a place that is real inside me.
+If I could describe what you mean to me.
+I would say you're a rare kind of warmth—the kind that stays with me even on the coldest days.
+You make life softer, happier, and more meaningful just by being in it.
+I'm grateful for you in ways words will never fully express.
+Thank you for being you.
+for being real.
+for being someone my heart chose without hesitation.
+I may not always say it perfectly, and I may not always express everything the right way…
+but every word I write for you, every feeling I share — it all comes from a place that is real inside me
 </p>
 </div>
 </section>
@@ -170,21 +187,26 @@ every word I write for you comes from a place that is real inside me.
 <div class="panel" id="p4-1"><div class="panel-inner">
 <div class="face front"><img src="assets/ONE.jpeg"></div>
 <div class="face back"><img src="assets/ONE.jpeg">
-<div class="panel-text">I love you because you never give up on us.</div>
-</div></div></div>
+<div class="panel-text">
+I love you because you never give up on us.
+</div></div></div></div>
 
 <div class="panel" id="p4-2"><div class="panel-inner">
 <div class="face front"><img src="assets/TWO.jpeg"></div>
 <div class="face back"><img src="assets/TWO.jpeg">
-<div class="panel-text">I promise I'll never let a girl come between us.</div>
-</div></div></div>
+<div class="panel-text">
+I promise I'll never let a girl come between us,
+my loyalty and heart....
+</div></div></div></div>
 
 <div class="panel" id="p4-3"><div class="panel-inner">
 <div class="face front"><img src="assets/THREE.jpeg"></div>
 <div class="face back"><img src="assets/THREE.jpeg">
 <div class="panel-text">
-We get married, build a home, and wake up beside each other.
-</div></div></div>
+We get married with our parents' permission and work hard.
+We have our own house.
+Every morning we wake up beside each other.
+</div></div></div></div>
 
 </div>
 </section>
@@ -193,9 +215,14 @@ We get married, build a home, and wake up beside each other.
 <section id="screen5" class="screen">
 <div class="slide show" style="background-image:url('assets/intro.jpeg')"></div>
 <div class="slide" style="background-image:url('assets/ima1.jpeg')"></div>
+<div class="slide" style="background-image:url('assets/ima2.jpeg')"></div>
+<div class="slide" style="background-image:url('assets/ima3.jpeg')"></div>
+
 <div class="wrap">
-<div class="final-line">WITH ALL MY LOVE</div>
-<div class="final-line">FOREVER YOURS</div>
+<div class="final-line">WITH ALL MY LOVE (:</div>
+<div class="final-line">FOREVER YOURS....</div>
+<div class="final-line">THANK YOU FOR LETTING ME LOVE YOU...><</div>
+<div class="final-line">SOME LOVE STORIES DON'T NEED WORDS... OURS IS ONE OF THEM>>></div>
 <div class="final-line">YOURS JERRY</div>
 </div>
 </section>
@@ -213,14 +240,13 @@ bgm.play().catch(()=>{});
 show('screen2');
 }
 
-function setup(ids,next,delay){
-let count=0;
-ids.forEach(el=>{
-el.onclick=()=>{
-if(el.classList.contains('flipped'))return;
-el.classList.add('flipped');
-count++;
-if(count===ids.length){
+function setup(panels,next,delay){
+let c=0;
+panels.forEach(p=>{
+p.onclick=()=>{
+if(p.classList.contains('flipped'))return;
+p.classList.add('flipped');c++;
+if(c===panels.length){
 setTimeout(()=>show(next),delay);
 }
 };
@@ -240,6 +266,29 @@ document.getElementById('p4-3')
 ],'screen5',3000);
 
 document.getElementById('screen3').onclick=()=>show('screen4');
+
+let slides=[...document.querySelectorAll('.slide')];
+let si=0;
+setInterval(()=>{
+slides[si].classList.remove('show');
+si=(si+1)%slides.length;
+slides[si].classList.add('show');
+},2500);
+
+let lines=[...document.querySelectorAll('.final-line')];
+function loopText(){
+let d=0;
+lines.forEach(l=>{
+setTimeout(()=>{l.style.opacity=1;l.style.transform='translateY(0)'},d);
+d+=1500;
+});
+setTimeout(()=>{
+lines.forEach((l,i)=>{
+setTimeout(()=>{l.style.opacity=0},i*700);
+});
+},d+1000);
+}
+setInterval(loopText,12000);
 </script>
 
 </body>
