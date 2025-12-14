@@ -1,0 +1,246 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<title>NICKY25</title>
+
+<style>
+*{box-sizing:border-box}
+html,body{
+  margin:0;height:100%;width:100%;
+  background:#031226;
+  font-family:Poppins,Arial;
+  overflow:hidden;color:#fff;
+}
+.screen{
+  position:fixed;inset:0;
+  display:flex;align-items:center;justify-content:center;
+  flex-direction:column;
+  opacity:0;pointer-events:none;
+  transition:opacity .6s ease;
+}
+.screen.active{opacity:1;pointer-events:auto}
+.bg{
+  position:absolute;inset:0;
+  background-size:cover;background-position:center;
+  filter:brightness(.9);
+}
+.wrap{position:relative;z-index:5;width:90%;max-width:900px;text-align:center}
+
+/* screen 1 */
+.title1{font-size:clamp(24px,6vw,38px);font-weight:900}
+.subtitle1{margin-top:8px}
+.tap-btn{
+  margin-top:20px;padding:14px 40px;
+  border-radius:30px;border:none;
+  background:rgba(255,255,255,.15);
+  color:#fff;font-weight:800;
+}
+
+/* panels */
+.panel-container{
+  width:92%;height:86%;
+  display:flex;flex-direction:column;
+  gap:18px;justify-content:space-between;
+}
+.panel{
+  height:30%;border-radius:22px;
+  perspective:1200px;cursor:pointer;
+}
+.panel-inner{
+  width:100%;height:100%;
+  transform-style:preserve-3d;
+  transition:transform .7s ease;
+  border-radius:22px;
+}
+.panel.flipped .panel-inner{transform:rotateY(180deg)}
+.face{
+  position:absolute;inset:0;
+  backface-visibility:hidden;
+  border-radius:22px;
+  overflow:hidden;
+  display:flex;align-items:center;justify-content:center;
+}
+.front img,.back img{
+  width:100%;height:100%;object-fit:cover;
+}
+.back{
+  transform:rotateY(180deg);
+}
+.back img{
+  filter:blur(10px) brightness(.7);
+}
+.panel-text{
+  position:absolute;z-index:2;
+  padding:22px;
+  font-size:clamp(14px,4vw,18px);
+  line-height:1.55;
+  text-shadow:0 4px 14px rgba(0,0,0,.9);
+}
+
+/* screen 3 */
+.letter{
+  background:rgba(255,255,255,.08);
+  border-radius:22px;
+  padding:26px;
+  backdrop-filter:blur(6px);
+}
+.letter h2{margin-top:0;font-size:clamp(22px,5vw,34px)}
+.letter p{white-space:pre-wrap;text-align:left;line-height:1.6}
+
+/* screen 5 */
+.slide{
+  position:absolute;inset:0;
+  background-size:cover;background-position:center;
+  opacity:0;transition:opacity 1s ease;
+}
+.slide.show{opacity:1}
+.final-line{
+  font-size:clamp(18px,4.5vw,30px);
+  font-weight:800;
+  opacity:0;transform:translateY(12px);
+  transition:.9s;
+}
+</style>
+</head>
+
+<body>
+
+<audio id="bgm" src="assets/KaiseHua.mp3" loop></audio>
+
+<!-- SCREEN 1 -->
+<section id="screen1" class="screen active">
+  <div class="bg" style="background-image:url('assets/intro.jpeg')"></div>
+  <div class="wrap">
+    <div class="title1">HAPPY BIRTHDAY JANUDI</div>
+    <div class="subtitle1">A SPECIAL DAY FOR THE LOVE OF MY LIFE</div>
+    <button class="tap-btn" onclick="start()">TAP TO OPEN</button>
+  </div>
+</section>
+
+<!-- SCREEN 2 -->
+<section id="screen2" class="screen">
+<div class="bg" style="background-image:url('assets/SCREEN3.jpeg')"></div>
+<div class="panel-container">
+
+<div class="panel" id="p2-1"><div class="panel-inner">
+<div class="face front"><img src="assets/ima1.jpeg"></div>
+<div class="face back"><img src="assets/ima1.jpeg">
+<div class="panel-text">
+I may not always say it perfectly...
+but every word I write for you comes from something real inside me.
+</div></div></div></div>
+
+<div class="panel" id="p2-2"><div class="panel-inner">
+<div class="face front"><img src="assets/ima2.jpeg"></div>
+<div class="face back"><img src="assets/ima2.jpeg">
+<div class="panel-text">
+You changed the meaning of love for me.
+You showed me calm, softness, and care.
+</div></div></div></div>
+
+<div class="panel" id="p2-3"><div class="panel-inner">
+<div class="face front"><img src="assets/ima3.jpeg"></div>
+<div class="face back"><img src="assets/ima3.jpeg">
+<div class="panel-text">
+Loving you was the most beautiful decision of my life.
+</div></div></div></div>
+
+</div>
+</section>
+
+<!-- SCREEN 3 -->
+<section id="screen3" class="screen">
+<div class="bg" style="background-image:url('assets/ima3.jpeg')"></div>
+<div class="wrap letter">
+<h2>Happiest birthday JANUDIIII.</h2>
+<p>
+If I could describe what you mean to me...
+every word I write for you comes from a place that is real inside me.
+</p>
+</div>
+</section>
+
+<!-- SCREEN 4 -->
+<section id="screen4" class="screen">
+<div class="bg" style="background-image:url('assets/SCREEN5.jpeg')"></div>
+<div class="panel-container">
+
+<div class="panel" id="p4-1"><div class="panel-inner">
+<div class="face front"><img src="assets/ONE.jpeg"></div>
+<div class="face back"><img src="assets/ONE.jpeg">
+<div class="panel-text">I love you because you never give up on us.</div>
+</div></div></div>
+
+<div class="panel" id="p4-2"><div class="panel-inner">
+<div class="face front"><img src="assets/TWO.jpeg"></div>
+<div class="face back"><img src="assets/TWO.jpeg">
+<div class="panel-text">I promise I'll never let a girl come between us.</div>
+</div></div></div>
+
+<div class="panel" id="p4-3"><div class="panel-inner">
+<div class="face front"><img src="assets/THREE.jpeg"></div>
+<div class="face back"><img src="assets/THREE.jpeg">
+<div class="panel-text">
+We get married, build a home, and wake up beside each other.
+</div></div></div>
+
+</div>
+</section>
+
+<!-- SCREEN 5 -->
+<section id="screen5" class="screen">
+<div class="slide show" style="background-image:url('assets/intro.jpeg')"></div>
+<div class="slide" style="background-image:url('assets/ima1.jpeg')"></div>
+<div class="wrap">
+<div class="final-line">WITH ALL MY LOVE</div>
+<div class="final-line">FOREVER YOURS</div>
+<div class="final-line">YOURS JERRY</div>
+</div>
+</section>
+
+<script>
+const bgm=document.getElementById('bgm');
+
+function show(id){
+document.querySelectorAll('.screen').forEach(s=>s.classList.remove('active'));
+document.getElementById(id).classList.add('active');
+}
+
+function start(){
+bgm.play().catch(()=>{});
+show('screen2');
+}
+
+function setup(ids,next,delay){
+let count=0;
+ids.forEach(el=>{
+el.onclick=()=>{
+if(el.classList.contains('flipped'))return;
+el.classList.add('flipped');
+count++;
+if(count===ids.length){
+setTimeout(()=>show(next),delay);
+}
+};
+});
+}
+
+setup([
+document.getElementById('p2-1'),
+document.getElementById('p2-2'),
+document.getElementById('p2-3')
+],'screen3',5000);
+
+setup([
+document.getElementById('p4-1'),
+document.getElementById('p4-2'),
+document.getElementById('p4-3')
+],'screen5',3000);
+
+document.getElementById('screen3').onclick=()=>show('screen4');
+</script>
+
+</body>
+</html>
