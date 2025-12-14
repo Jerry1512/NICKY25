@@ -105,15 +105,20 @@ html,body{
   justify-content:center;
 }
 
+/* 👇 FIX: force proper layer order */
+.front{
+  z-index:3;
+}
+.back{
+  transform:rotateY(180deg);
+  z-index:1;
+}
+
 .front img,
 .back img{
   width:100%;
   height:100%;
   object-fit:cover;
-}
-
-.back{
-  transform:rotateY(180deg);
 }
 
 .blur{
@@ -132,9 +137,10 @@ html,body{
   font-size:clamp(14px,3.4vw,18px);
   line-height:1.5;
   color:#fff;
-  background:rgba(0,0,0,.25);
-  z-index:3;
+  background:rgba(0,0,0,.35);
+  z-index:4;
   font-weight:600;
+  pointer-events:none;
 }
 
 /* LETTER */
@@ -193,6 +199,7 @@ html,body{
 <section id="screen2" class="screen">
   <div class="bg" style="background-image:url('assets/SCREEN3.jpeg')"></div>
   <div class="panel-container">
+
     <div class="panel" onclick="flip(this)">
       <div class="panel-inner">
         <div class="face front"><img src="assets/ima1.jpeg"></div>
@@ -229,6 +236,7 @@ html,body{
         </div>
       </div>
     </div>
+
   </div>
 </section>
 
