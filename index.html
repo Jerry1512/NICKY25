@@ -72,12 +72,12 @@ html,body{
   filter:blur(10px) brightness(.7);
 }
 .panel-text{
-  position:absolute;z-index:2;
+  position:absolute;
+  z-index:2;
   padding:22px;
   font-size:clamp(14px,4vw,18px);
   line-height:1.6;
   text-shadow:0 6px 20px rgba(0,0,0,.9);
-  text-align:center;
 }
 
 /* SCREEN 3 */
@@ -134,18 +134,29 @@ html,body{
 
 <div class="panel" id="p2-1"><div class="panel-inner">
 <div class="face front"><img src="assets/ima1.jpeg"></div>
-<div class="face back"><img src="assets/ima1.jpeg"><div class="panel-text">Text</div></div>
-</div></div>
+<div class="face back"><img src="assets/ima1.jpeg">
+<div class="panel-text">
+“I may not always say it perfectly, and I may not always express everything the right way…
+but every word I write for you, every feeling I share — it all comes from a place that is real inside me.”
+</div></div></div></div>
 
 <div class="panel" id="p2-2"><div class="panel-inner">
 <div class="face front"><img src="assets/ima2.jpeg"></div>
-<div class="face back"><img src="assets/ima2.jpeg"><div class="panel-text">Text</div></div>
-</div></div>
+<div class="face back"><img src="assets/ima2.jpeg">
+<div class="panel-text">
+“You’ve changed the meaning of love for me.
+You’ve shown me what calm feels like, what softness feels like,
+what it means to be cared for without being asked.”
+</div></div></div></div>
 
 <div class="panel" id="p2-3"><div class="panel-inner">
 <div class="face front"><img src="assets/ima3.jpeg"></div>
-<div class="face back"><img src="assets/ima3.jpeg"><div class="panel-text">Text</div></div>
-</div></div>
+<div class="face back"><img src="assets/ima3.jpeg">
+<div class="panel-text">
+“And if there is one thing I am always sure about…
+it’s that loving you has been the most beautiful decision of my life —
+one I would make again, every single time.”
+</div></div></div></div>
 
 </div>
 </section>
@@ -155,11 +166,21 @@ html,body{
 <div class="bg" style="background-image:url('assets/ima3.jpeg')"></div>
 <div class="wrap letter">
 <h2>Happiest birthday JANUDIIII.</h2>
-<p>Text</p>
+<p>
+If I could describe what you mean to me.
+I would say you're a rare kind of warmth—the kind that stays with me even on the coldest days.
+You make life softer, happier, and more meaningful just by being in it.
+I'm grateful for you in ways words will never fully express.
+Thank you for being you.
+for being real.
+for being someone my heart chose without hesitation.
+I may not always say it perfectly, and I may not always express everything the right way…
+but every word I write for you, every feeling I share — it all comes from a place that is real inside me
+</p>
 </div>
 </section>
 
-<!-- ✅ SCREEN 4 — ONLY FRONT TEXT ADDED -->
+<!-- SCREEN 4 (ONLY FRONT TEXT ADDED) -->
 <section id="screen4" class="screen">
 <div class="bg" style="background-image:url('assets/SCREEN5.jpeg')"></div>
 <div class="panel-container">
@@ -204,18 +225,81 @@ Every morning we wake up beside each other.
 <!-- SCREEN 5 -->
 <section id="screen5" class="screen">
 <div class="slide show" style="background-image:url('assets/intro.jpeg')"></div>
+<div class="slide" style="background-image:url('assets/ima1.jpeg')"></div>
+<div class="slide" style="background-image:url('assets/ima2.jpeg')"></div>
+<div class="slide" style="background-image:url('assets/ima3.jpeg')"></div>
+
 <div class="wrap">
 <div class="final-line">WITH ALL MY LOVE (:</div>
+<div class="final-line">FOREVER YOURS....</div>
+<div class="final-line">THANK YOU FOR LETTING ME LOVE YOU...><</div>
+<div class="final-line">SOME LOVE STORIES DON'T NEED WORDS... OURS IS ONE OF THEM>>></div>
+<div class="final-line">YOURS JERRY</div>
 </div>
 </section>
 
 <script>
 const bgm=document.getElementById('bgm');
+
 function show(id){
 document.querySelectorAll('.screen').forEach(s=>s.classList.remove('active'));
 document.getElementById(id).classList.add('active');
 }
-function start(){bgm.play().catch(()=>{});show('screen2');}
+
+function start(){
+bgm.play().catch(()=>{});
+show('screen2');
+}
+
+function setup(panels,next,delay){
+let c=0;
+panels.forEach(p=>{
+p.onclick=()=>{
+if(p.classList.contains('flipped'))return;
+p.classList.add('flipped');c++;
+if(c===panels.length){
+setTimeout(()=>show(next),delay);
+}
+};
+});
+}
+
+setup([
+document.getElementById('p2-1'),
+document.getElementById('p2-2'),
+document.getElementById('p2-3')
+],'screen3',5000);
+
+setup([
+document.getElementById('p4-1'),
+document.getElementById('p4-2'),
+document.getElementById('p4-3')
+],'screen5',3000);
+
+document.getElementById('screen3').onclick=()=>show('screen4');
+
+let slides=[...document.querySelectorAll('.slide')];
+let si=0;
+setInterval(()=>{
+slides[si].classList.remove('show');
+si=(si+1)%slides.length;
+slides[si].classList.add('show');
+},2500);
+
+let lines=[...document.querySelectorAll('.final-line')];
+function loopText(){
+let d=0;
+lines.forEach(l=>{
+setTimeout(()=>{l.style.opacity=1;l.style.transform='translateY(0)'},d);
+d+=1500;
+});
+setTimeout(()=>{
+lines.forEach((l,i)=>{
+setTimeout(()=>{l.style.opacity=0},i*700);
+});
+},d+1000);
+}
+setInterval(loopText,12000);
 </script>
 
 </body>
